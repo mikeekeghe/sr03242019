@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.MasterController">
+   <left>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" styleClass="topPane" BorderPane.alignment="CENTER">
+         <effect>
+            <DropShadow color="#bdbdbd" height="0.0" offsetY="5.0" radius="12.0" width="50.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <children>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="704.0" prefWidth="126.0" spacing="30.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/store.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Master">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/loads.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemListing" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Listing">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="15.0" layoutY="249.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/bags.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleKarigarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Karigar Master">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="15.0" layoutY="333.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/shopping.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleJadtarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jadtar Master">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="15.0" layoutY="417.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/shop.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePartyMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Party Master">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/ecommerce.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAccessoriesMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accessories Master">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="AnchorPane1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="629.0">
+               <children>
+                  <ImageView fx:id="addImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="addButton" layoutX="-6.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemAdd" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                  <Text layoutX="4.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD" />
+                  <Pane layoutX="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <children>
+                        <ImageView fx:id="updateImageView" fitHeight="40.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="updateButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemUpdate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="202.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Pane>
+                  <Pane layoutX="487.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Pane>
+                  <Pane layoutX="152.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <children>
+                        <ImageView fx:id="closeImageView" fitHeight="40.0" fitWidth="40.0" layoutX="4.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="images/drawable-hdpi/ic_close_deep_orange_800_48dp.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <HBox alignment="CENTER" layoutX="287.0" layoutY="9.0" prefHeight="40.0" prefWidth="247.0" spacing="25.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fx:id="firstImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/drawable-hdpi/ic_first_page_blue_800_48dp.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="firstButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleFirst" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fx:id="previousImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/drawable-hdpi/ic_navigate_before_blue_800_48dp.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="previousButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrevious" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fx:id="nextImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/drawable-hdpi/ic_navigate_next_blue_800_48dp.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="nextButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNext" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fx:id="lastImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/drawable-hdpi/ic_last_page_blue_800_48dp.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="lastButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLast" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <Text layoutX="48.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UPDATE" />
+                  <Text layoutX="110.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SAVE" />
+                  <Text layoutX="200.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DELETE" />
+                  <Text layoutX="151.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLOSE" />
+                  <Button fx:id="listButton" layoutX="232.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                  <Button fx:id="saveButton" disable="true" layoutX="97.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSaveItem" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                  <ImageView fx:id="listImageView" fitHeight="40.0" fitWidth="40.0" layoutX="246.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="images/drawable-hdpi/ic_list_teal_800_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="103.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <children>
+                        <ImageView fx:id="saveImageView" fitHeight="40.0" fitWidth="40.0" layoutX="4.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="images/drawable-hdpi/ic_save_grey_600_48dp.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ImageView fx:id="deleteImageView" fitHeight="40.0" fitWidth="40.0" layoutX="203.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="images/drawable-hdpi/ic_delete_red_800_48dp.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <TabPane layoutX="14.0" layoutY="347.0" prefHeight="369.0" prefWidth="1089.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Karigar">
+                  <content>
+                    <AnchorPane prefHeight="355.0" prefWidth="1089.0">
+                           <children>
+                              <GridPane alignment="CENTER" layoutX="11.0" layoutY="4.0" prefHeight="325.0" prefWidth="300.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Issue Date:" />
+                                    <DatePicker fx:id="karigar_IssueDate" editable="false" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ghat Gross Wt:" GridPane.rowIndex="2" />
+                                    <TextField fx:id="karigar_GhatGrossWtField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ghat Wt:" GridPane.rowIndex="3" />
+                                    <TextField fx:id="karigar_GhatWtField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purity %:" GridPane.rowIndex="4" />
+                                    <TextField fx:id="karigar_PurityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Karigar Labour %:" GridPane.rowIndex="5" />
+                                    <TextField fx:id="karigar_LabourField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ghat Gross Wt 2:" GridPane.rowIndex="6" />
+                                    <TextField fx:id="karigar_GhatGrossWt2Field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Purity % 2:" GridPane.rowIndex="7" />
+                                    <TextField fx:id="karigar_Purity2Field" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Net Fine:" GridPane.rowIndex="8" />
+                                    <TextField fx:id="karigar_NetFineField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Text layoutX="10.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M T Weight:" GridPane.rowIndex="9" />
+                                    <Text layoutX="10.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M T Name:" GridPane.rowIndex="10" />
+                                    <TextField fx:id="karigar_MTWeightField" layoutX="139.0" layoutY="169.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <TextField fx:id="karigar_MTNameField" layoutX="139.0" layoutY="193.0" prefHeight="60.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <Button mnemonicParsing="false" onAction="#getTodaysDate" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <TableView fx:id="karigar_TableView" layoutX="329.0" layoutY="58.0" prefHeight="250.0" prefWidth="741.0">
+                                <columns>
+                                  <TableColumn fx:id="karigar_DetailColumn" prefWidth="121.0" text="Detail" />
+                                  <TableColumn fx:id="karigar_GrossColumn" prefWidth="134.0" text="Gross" />
+                                    <TableColumn fx:id="karigar_WeightColumn" prefWidth="94.0" text="Weight" />
+                                    <TableColumn fx:id="karigar_RateColumn" prefWidth="138.0" text="Rate" />
+                                    <TableColumn fx:id="karigar_AmountColumn" prefWidth="107.0" text="Amount" />
+                                    <TableColumn prefWidth="107.0" text="Delete" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" layoutX="329.0" prefHeight="50.0" prefWidth="744.0" spacing="10.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Detail">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="karigar_DetailField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gross" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="karigar_GrossField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="157.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="karigar_WeightField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="304.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="karigar_RateField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="karigar_AmountField" editable="false" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadKarigrRecord" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_delete_red_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Jadtar">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane layoutX="14.0" layoutY="4.0" prefHeight="284.0" prefWidth="297.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Receive Date:" />
+                                    <DatePicker fx:id="jadtar_ReceiveDate" editable="false" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jadtar Gross Wt:" GridPane.rowIndex="2" />
+                                    <TextField fx:id="jadtar_JadtarGrossWtField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kundan:" GridPane.rowIndex="3" />
+                                    <TextField fx:id="jadtar_KundanField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Racket:" GridPane.rowIndex="4" />
+                                    <TextField fx:id="jadtar_RacketField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Kundan:" GridPane.rowIndex="5" />
+                                    <TextField fx:id="jadtar_TotalKundanField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount:" GridPane.rowIndex="6" />
+                                    <TextField fx:id="jadtar_TotalAmountField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total Vax:" GridPane.rowIndex="7" />
+                                    <TextField fx:id="jadtar_TotalVaxField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Button mnemonicParsing="false" onAction="#getTodaysDate2" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <TableView fx:id="jadtar_TableView" layoutX="329.0" layoutY="58.0" prefHeight="250.0" prefWidth="759.0">
+                                 <columns>
+                                    <TableColumn fx:id="jadtar_AccessoryColumn" prefWidth="95.0" text="Accessory" />
+                                    <TableColumn fx:id="jadtar_CaratColumn" prefWidth="104.0" text="Carat" />
+                                    <TableColumn fx:id="jadtar_WeightColumn" prefWidth="95.0" text="Weight" />
+                                    <TableColumn fx:id="jadtar_QtyColumn" prefWidth="112.0" text="Qty" />
+                                    <TableColumn fx:id="jadtar_RateColumn" prefWidth="101.0" text="Rate" />
+                                    <TableColumn fx:id="jadtar_AmountColumn" prefWidth="92.0" text="Amount" />
+                                    <TableColumn prefWidth="92.0" text="Delete" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" layoutX="329.0" prefHeight="50.0" prefWidth="761.0" spacing="10.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accessory">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_AccessoryField" prefHeight="34.0" prefWidth="91.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carat" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_CaratField" prefHeight="50.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="157.0" layoutY="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_WeightField" prefHeight="50.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="304.0" layoutY="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_Qtyield" prefHeight="50.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_RateField" prefHeight="50.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="410.0" layoutY="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="jadtar_AmountField" editable="false" prefHeight="50.0" prefWidth="200.0" />
+                                       </children>
+                                    </VBox>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button fx:id="jadtar_AddBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lodJadtarRecord" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_delete_red_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab onSelectionChanged="#getTodaysDate3" text="Ready">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane layoutX="14.0" layoutY="4.0" prefHeight="284.0" prefWidth="297.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ready Date:" GridPane.rowIndex="4" />
+                                    <DatePicker fx:id="ready_ReadyDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ready Gross Wt:" />
+                                    <TextField fx:id="ready_ReadyGrossWtField" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fitting Wt:" GridPane.rowIndex="1" />
+                                    <TextField fx:id="ready_FittingWtField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Net Wt:" GridPane.rowIndex="2" />
+                                    <TextField fx:id="ready_NetWtField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Net Kundan:" GridPane.rowIndex="3" />
+                                    <TextField fx:id="ready_NetKundanField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Button mnemonicParsing="false" onAction="#getTodaysDate3" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                              <TableView fx:id="ready_TableView" layoutX="329.0" layoutY="58.0" prefHeight="250.0" prefWidth="760.0">
+                                 <columns>
+                                    <TableColumn fx:id="ready_AccessoryColumn" prefWidth="95.0" text="Accessory" />
+                                    <TableColumn fx:id="ready_CaratColumn" prefWidth="106.0" text="Carat" />
+                                    <TableColumn fx:id="ready_WeightColumn" prefWidth="82.0" text="Weight" />
+                                    <TableColumn fx:id="ready_QtyColumn" prefWidth="93.0" text="Qty" />
+                                    <TableColumn fx:id="ready_RateColumn" prefWidth="117.0" text="Rate" />
+                                    <TableColumn fx:id="ready_AmountColumn" prefWidth="87.0" text="Amount" />
+                                    <TableColumn prefWidth="87.0" text="Delete" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER" layoutX="329.0" prefHeight="50.0" prefWidth="742.0" spacing="10.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accessory">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_AccessoryField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carat" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_CaratField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="157.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_WeightField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="304.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qty" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_QtyField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_RateField" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" layoutX="410.0" layoutY="10.0" prefHeight="50.0" prefWidth="147.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
+                                             <font>
+                                                <Font name="System Bold" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="Ready_AmountField" editable="false" prefHeight="34.0" prefWidth="147.0" />
+                                       </children>
+                                    </VBox>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadReadyMethod" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="images/drawable-hdpi/ic_delete_red_800_48dp.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <GridPane layoutX="29.0" layoutY="94.0" prefHeight="210.0" prefWidth="280.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Code:" />
+                  <TextField fx:id="itemCodeField" editable="false" promptText="AutoGenerated" GridPane.columnIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Party Name:" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Karigar Name:" GridPane.rowIndex="3" />
+                  <TextField fx:id="karigarNameField" prefHeight="54.0" prefWidth="108.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jadtar Karigar Name:" GridPane.rowIndex="4" />
+                  <TextField fx:id="jadtarKarigarNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Print Code:" GridPane.rowIndex="5" />
+                  <TextField fx:id="printCodeField" prefHeight="59.0" prefWidth="139.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text layoutX="10.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name:" GridPane.rowIndex="1" />
+                  <TextField fx:id="itemNameField" layoutX="150.0" layoutY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="partyNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="862.0" layoutY="78.0" prefHeight="121.0" prefWidth="304.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="143.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="142.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ComboBox fx:id="codeComboBox" onAction="#handleSearchByCode" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="nameComboBox" layoutX="110.0" layoutY="12.0" onAction="#handleSearchByName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="printCodeComboBox" layoutX="110.0" layoutY="42.0" onAction="#handleSearchByPrintCode" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Code:" />
+                  <Text layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Name:" GridPane.rowIndex="1" />
+                  <Text layoutX="10.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Print Code:" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" layoutX="337.0" layoutY="91.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="443.0" spacing="10.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/scanner.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleScanImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scan image" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/printer.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrintImage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Print Image" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="260.0" layoutY="10.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/scanner_ready.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleScanReadyImage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scan Ready image" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="209.0" layoutY="10.0" spacing="10.0">
+                     <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="images/printer_ready.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePrintReadyImage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Print Ready image" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <ImageView fx:id="masterImageView1" fitHeight="150.0" fitWidth="150.0" layoutX="344.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="images/splash.png" />
+               </image></ImageView>
+            <ImageView fx:id="masterImageView2" fitHeight="150.0" fitWidth="150.0" layoutX="571.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+   </right>
+</BorderPane>
