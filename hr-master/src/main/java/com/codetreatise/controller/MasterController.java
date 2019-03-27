@@ -408,9 +408,9 @@ public class MasterController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Get first item
-        getItem(ZERO);
-
+        setTotalPages(getTotalItems());
+        getItem(totalPages-ONE);
+        setCurrentPage(totalPages-ONE);
         Runnable populate = this::populateComboBox;
         populate.run();
 
@@ -420,6 +420,10 @@ public class MasterController implements Initializable {
         TextFields.bindAutoCompletion(karigarNameField, getKarigar());
         TextFields.bindAutoCompletion(jadtarKarigarNameField, getJadtar());
         setAllTabMoveFunctionalities();
+    }
+
+    private void setTotalPages(int totalPages){
+        this.totalPages = totalPages;
     }
 
     private void setAllTabMoveFunctionalities() {
@@ -1146,7 +1150,7 @@ public class MasterController implements Initializable {
 
     @FXML
     private void handleFirst() {
-        currentPage = ZERO;
+        setCurrentPage(ZERO);
         getItem(currentPage);
     }
 
@@ -1168,7 +1172,7 @@ public class MasterController implements Initializable {
 
     @FXML
     private void handleLast() {
-        currentPage = totalPages - ONE;
+         setCurrentPage(totalPages - ONE);
         getItem(currentPage);
     }
 
@@ -1279,7 +1283,7 @@ public class MasterController implements Initializable {
     public void handleSearchByCode() {
         int item = codeComboBox.getSelectionModel().getSelectedIndex();
         getItem(item);
-        currentPage = item;
+
     }
 
     @FXML
@@ -1287,7 +1291,7 @@ public class MasterController implements Initializable {
         int item = Math.toIntExact(
                 masterService.findByItemname(nameComboBox.getSelectionModel().getSelectedItem().toString()).getId());
         getItem(item);
-        currentPage = item;
+
     }
 
     @FXML
@@ -1303,25 +1307,31 @@ public class MasterController implements Initializable {
         return currentPage;
     }
 
+
+    private int getTotalItems(){
+        Pageable pageable = new PageRequest(0, PAGE_SIZE);
+        Page<Items> items = masterService.findAll(pageable);
+        return items.getTotalPages();
+    }
     private void getItem(int page) {
         Pageable pageable = new PageRequest(page, PAGE_SIZE);
         Page<Items> items = masterService.findAll(pageable);
-        totalPages = items.getTotalPages();
-        //NEXT 8  LINE TEMPORRILY DISABLED
-
         this.items = items.getContent().get(0);
         this.itemkarigar = this.items.getItemKarigar();
         this.itemjadtar = this.items.getItemJadtar();
         this.itemready = this.items.getItemReady();
 
-         listItem();
-         listItemKarigar();
-         listItemJadtar();
-         listItemReady();
-         listItemKarigarAccessry();	 
-        //BULK COMMENT ENDS HERE
-        // listItemJadtarAccessry();
-        // listItemReadyAccessry();
+        try {
+            listItem();
+            listItemKarigar();
+            listItemJadtar();
+            listItemReady();
+            listItemKarigarAccessry();
+            //listItemJadtarAccessry();
+            //listItemReadyAccessry();
+        }catch (NullPointerException e){
+            System.err.print("getItem had Null value");
+        }
     }
 
     private void listItem() {

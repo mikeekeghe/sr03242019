@@ -42,12 +42,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.197</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -87,14 +81,6 @@
 			<artifactId>controlsfx</artifactId>
 			<version>8.40.14</version>
 		</dependency>
-	
-	 <dependency>
-	  <groupId>com.codetreatise</groupId>
-	  <artifactId>HR</artifactId>
-	  <version>1.0</version>
-	  <type>jar</type>
-	 </dependency>
-	
 	</dependencies>
 
     <build>
