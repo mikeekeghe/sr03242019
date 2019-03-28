@@ -106,6 +106,9 @@ public class MasterController implements Initializable {
     private AcntmstService acntmstService;
 
     @Autowired
+    private CustomaccessService customaccessService;
+
+    @Autowired
     private ItemkarigarService itemkarigarService;
 
     @Autowired
@@ -371,16 +374,19 @@ public class MasterController implements Initializable {
     TextField jadtar_RateField;
 
     @FXML
-    TextField Ready_CaratField;
+    TextField ready_AccessoryField;
 
     @FXML
-    TextField Ready_WeightField;
+    TextField ready_CaratField;
 
     @FXML
-    TextField Ready_QtyField;
+    TextField ready_WeightField;
 
     @FXML
-    TextField Ready_RateField;
+    TextField ready_QtyField;
+
+    @FXML
+    TextField ready_RateField;
 
     @FXML
     TextField karigar_AmountField;
@@ -401,10 +407,7 @@ public class MasterController implements Initializable {
     private Button jadtar_AddBtn;
 
     @FXML
-    private TextField Ready_AccessoryField;
-
-    @FXML
-    private TextField Ready_AmountField;
+    private TextField ready_AmountField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -419,8 +422,13 @@ public class MasterController implements Initializable {
         TextFields.bindAutoCompletion(partyNameField, getAcntmst());
         TextFields.bindAutoCompletion(karigarNameField, getKarigar());
         TextFields.bindAutoCompletion(jadtarKarigarNameField, getJadtar());
+        TextFields.bindAutoCompletion(karigar_DetailField, getAccessoryDetails());
+        TextFields.bindAutoCompletion(jadtar_AccessoryField, getAccessoryDetails());
+        TextFields.bindAutoCompletion(ready_AccessoryField, getAccessoryDetails());
         setAllTabMoveFunctionalities();
     }
+
+
 
     private void setTotalPages(int totalPages){
         this.totalPages = totalPages;
@@ -630,7 +638,7 @@ public class MasterController implements Initializable {
             }
         });
 
-        Ready_AccessoryField.setOnKeyPressed((myEvent) -> {
+        ready_AccessoryField.setOnKeyPressed((myEvent) -> {
             try {
                 checkKeyPressed(myEvent);
             } catch (InterruptedException e) {
@@ -638,7 +646,7 @@ public class MasterController implements Initializable {
                 e.printStackTrace();
             }
         });
-        Ready_CaratField.setOnKeyPressed((myEvent) -> {
+        ready_CaratField.setOnKeyPressed((myEvent) -> {
             try {
                 checkKeyPressed(myEvent);
             } catch (InterruptedException e) {
@@ -646,7 +654,7 @@ public class MasterController implements Initializable {
                 e.printStackTrace();
             }
         });
-        Ready_WeightField.setOnKeyPressed((myEvent) -> {
+        ready_WeightField.setOnKeyPressed((myEvent) -> {
             try {
                 checkKeyPressed(myEvent);
             } catch (InterruptedException e) {
@@ -654,7 +662,7 @@ public class MasterController implements Initializable {
                 e.printStackTrace();
             }
         });
-        Ready_QtyField.setOnKeyPressed((myEvent) -> {
+        ready_QtyField.setOnKeyPressed((myEvent) -> {
             try {
                 checkKeyPressed(myEvent);
             } catch (InterruptedException e) {
@@ -662,7 +670,7 @@ public class MasterController implements Initializable {
                 e.printStackTrace();
             }
         });
-        Ready_RateField.setOnKeyPressed((myEvent) -> {
+        ready_RateField.setOnKeyPressed((myEvent) -> {
             try {
                 checkKeyPressed(myEvent);
             } catch (InterruptedException e) {
@@ -845,42 +853,42 @@ public class MasterController implements Initializable {
         });
         // ready
 
-        Ready_CaratField.textProperty().addListener(new ChangeListener<String>() {
+        ready_CaratField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
-                    Ready_CaratField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
+                    ready_CaratField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
             }
         });
 
-        Ready_WeightField.textProperty().addListener(new ChangeListener<String>() {
+        ready_WeightField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
-                    Ready_WeightField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
+                    ready_WeightField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
             }
         });
 
-        Ready_QtyField.textProperty().addListener(new ChangeListener<String>() {
+        ready_QtyField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
-                    Ready_QtyField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
+                    ready_QtyField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
             }
         });
 
-        Ready_RateField.textProperty().addListener(new ChangeListener<String>() {
+        ready_RateField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
-                    Ready_RateField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
+                    ready_RateField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
             }
         });
@@ -989,24 +997,24 @@ public class MasterController implements Initializable {
             wait();
 
             //ready right starts
-        } else if ((keycode == KeyCode.TAB) && (Ready_AccessoryField.isFocused() == true)) {
-            Ready_CaratField.requestFocus();
+        } else if ((keycode == KeyCode.TAB) && (ready_AccessoryField.isFocused() == true)) {
+            ready_CaratField.requestFocus();
             wait();
 
-        } else if ((keycode == KeyCode.TAB) && (Ready_CaratField.isFocused() == true)) {
-            Ready_WeightField.requestFocus();
+        } else if ((keycode == KeyCode.TAB) && (ready_CaratField.isFocused() == true)) {
+            ready_WeightField.requestFocus();
             wait();
 
-        } else if ((keycode == KeyCode.TAB) && (Ready_WeightField.isFocused() == true)) {
-            Ready_QtyField.requestFocus();
+        } else if ((keycode == KeyCode.TAB) && (ready_WeightField.isFocused() == true)) {
+            ready_QtyField.requestFocus();
             wait();
 
-        } else if ((keycode == KeyCode.TAB) && (Ready_QtyField.isFocused() == true)) {
-            Ready_RateField.requestFocus();
+        } else if ((keycode == KeyCode.TAB) && (ready_QtyField.isFocused() == true)) {
+            ready_RateField.requestFocus();
             wait();
 
-        } else if ((keycode == KeyCode.TAB) && (Ready_RateField.isFocused() == true)) {
-            Ready_AmountField.requestFocus();
+        } else if ((keycode == KeyCode.TAB) && (ready_RateField.isFocused() == true)) {
+            ready_AmountField.requestFocus();
             wait();
 
             //jadtr last
@@ -1055,7 +1063,7 @@ public class MasterController implements Initializable {
             wait();
 
         } else if ((keycode == KeyCode.TAB) && (ready_ReadyDate.isFocused() == true)) {
-            Ready_AccessoryField.requestFocus();
+            ready_AccessoryField.requestFocus();
             wait();
 
         } else if ((keycode == KeyCode.TAB) && (karigar_MTNameField.isFocused() == true)) {
@@ -1729,9 +1737,15 @@ public class MasterController implements Initializable {
         return jadtarmstService.findAll();
     }
 
-    private List<Acntmst> getAcntmst() {
+    private List<Acntmst>getAcntmst() {
         return acntmstService.findAll();
     }
+
+    private List<Customaccess> getAccessoryDetails() {
+        return customaccessService.findAll();
+    }
+
+
 
     private void populateComboBox() {
         ObservableList<String> itemCodes = FXCollections.observableArrayList();
