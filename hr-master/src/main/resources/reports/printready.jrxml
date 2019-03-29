@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="print" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be9cbc88-1b75-44ed-b8a7-126537a7a60d">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="param" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select itemcode,itemname,itemdate,readyimage,a.name,k.name as kname,
+(select GHATGRSWT from itemkarigar where items.id=itemsid) as netwt
+ from items, acntmst a,karigarmst k where items.partyid=a.id and
+items.karigarid=k.id and items.is_dele<>1 and $P!{param}]]>
+	</queryString>
+	<field name="itemcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+<!--	<field name="itemdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>-->
+	<field name="readyimage" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+<!--	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kname" class="java.lang.String"/>-->
+	<field name="netwt" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="RealSize">
+				<reportElement x="-24" y="-20" width="598" height="822" uuid="61ab70d6-c500-46ee-92de-5b04e4be75a1"/>
+				<imageExpression><![CDATA[$F{readyimage}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement mode="Opaque" x="-21" y="-20" width="595" height="20" forecolor="#000000" backcolor="#999999" uuid="c4e587b0-76c6-4a68-8eb2-3f3f462b2396"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+                                <textFieldExpression><![CDATA[$F{itemcode}]]></textFieldExpression>
+				
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="100" y="-20" width="50" height="20" forecolor="#000000" backcolor="#999999" uuid="c27b932d-0026-4179-a122-6d00ea2e1d27"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netwt}]]></textFieldExpression>
+			</textField>
+<!--			<textField>
+				<reportElement mode="Opaque" x="292" y="-20" width="60" height="20" forecolor="#000000" backcolor="#999999" uuid="1ee2668f-f6c8-43ef-9525-3af7a8a2af6e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="-20" width="45" height="20" forecolor="#000000" backcolor="#999999" uuid="1c55ebbc-36da-4c06-aeee-c2c475ea62f6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jadtar:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="48" y="-20" width="84" height="20" forecolor="#000000" backcolor="#999999" uuid="a87aa68a-f9fa-4579-82d6-87f1e3994d72"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="132" y="-20" width="50" height="20" forecolor="#000000" backcolor="#999999" uuid="9e42449d-1ee1-41ee-9350-a3b4faae5366"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="38" y="-20" width="10" height="20" forecolor="#000000" backcolor="#999999" uuid="52dc5458-b551-409e-a68b-760f33458aa2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="504" y="-20" width="61" height="20" forecolor="#000000" backcolor="#999999" uuid="e641b53c-4a63-4877-9b38-a8faa1ca8198"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netwt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="-8" y="-20" width="46" height="20" forecolor="#000000" backcolor="#999999" uuid="9aa7fa0b-f078-4f0c-a4b9-1925113f463d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="182" y="-20" width="60" height="20" forecolor="#000000" backcolor="#999999" uuid="18f4a743-c9b2-437f-a21d-442536f2a142"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="397" y="-20" width="56" height="20" forecolor="#000000" backcolor="#999999" uuid="6128a3ee-2685-4993-b479-90061a7cc4b3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="453" y="-20" width="51" height="20" forecolor="#000000" backcolor="#999999" uuid="edc2f860-7a8d-4af4-8e47-843bc06e8bbf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gross Wt:]]></text>
+			</staticText>-->
+		</band>
+	</detail>
+</jasperReport>

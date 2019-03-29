@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="print" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="493ca622-d308-4508-afd9-76c2750736d7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="param" class="java.lang.String"/>
+	<parameter name="dtstring" class="java.lang.String">
+            <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+        </parameter>
+	<queryString>
+		<![CDATA[select itemcode,itemname,itemdate,scanimage,a.name,k.name as kname,j.name as jname,
+(select GHATGRSWT from itemkarigar where items.id=itemsid) as ghatgrswt
+ from items, acntmst a,karigarmst k,jadtarmst j  where items.partyid=a.id and
+items.karigarid=k.id and items.jadtarid=j.id and items.is_dele<>1 and $P!{param}]]>
+	</queryString>
+	<field name="itemcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	
+	<field name="scanimage" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ghatgrswt" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="842" splitType="Stretch">
+			<image scaleImage="RealSize">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="595" height="842" uuid="3f01b4d4-63ba-41fc-83ee-79f673d236fb"/>
+				<imageExpression><![CDATA[$F{scanimage}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="595" height="20" forecolor="#000000" backcolor="#999999" uuid="867d9d07-524f-4152-a285-4b11eb34169f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="100" y="0" width="61" height="20" forecolor="#000000" backcolor="#999999" uuid="f686fcb5-457f-491f-8c41-6dbe59b7998e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ghatgrswt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="58" y="0" width="10" height="20" forecolor="#000000" backcolor="#999999" uuid="a585db34-cd72-49af-b6c5-adb9ae03dc13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="12" y="0" width="46" height="20" forecolor="#000000" backcolor="#999999" uuid="a27e2461-5c85-4cff-9319-6bf3d9f098fc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="0" width="66" height="20" forecolor="#000000" backcolor="#999999" />
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class = "java.lang.String"><![CDATA[$P{dtstring}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
