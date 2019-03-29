@@ -7,6 +7,8 @@ import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.MasterRepository;
 import com.codetreatise.service.*;
 import com.codetreatise.view.FxmlView;
+import com.querydsl.core.types.Path;
+import com.querydsl.jpa.hibernate.HibernateUtil;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,20 +33,42 @@ import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Double.parseDouble;
 import java.net.URL;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import org.apache.commons.collections.map.HashedMap;
+import org.h2.engine.Session;
 
 @Controller
 public class MasterController implements Initializable {
@@ -239,6 +263,9 @@ public class MasterController implements Initializable {
     Button deleteButton;
 
     @FXML
+    Button btnPrintImage;
+
+    @FXML
     Button listButton;
 
     @FXML
@@ -412,8 +439,8 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTotalPages(getTotalItems());
-        getItem(totalPages-ONE);
-        setCurrentPage(totalPages-ONE);
+        getItem(totalPages - ONE);
+        setCurrentPage(totalPages - ONE);
         Runnable populate = this::populateComboBox;
         populate.run();
 
@@ -428,9 +455,7 @@ public class MasterController implements Initializable {
         setAllTabMoveFunctionalities();
     }
 
-
-
-    private void setTotalPages(int totalPages){
+    private void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
@@ -1142,8 +1167,92 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage() {
+    public void handlePrintImage(ActionEvent e) {
+        try {
+            System.out.println("filing..");
+            JasperPrint print = fill(getCurrentRecord(), 1);
+            if (print != null) {
+                view(print);
+                print(print);
+                print = null;
+            }
+            System.out.println("Print...");
+        } catch (Exception ex) {
+            System.out.println("error in Print:" + ex);
+        }
 
+    }
+
+    public JasperPrint fill(int receiptid, int printtype) {
+        JasperPrint print = null;
+        long start = System.currentTimeMillis();
+        //Preparing parameters
+        java.util.Map parameters = new java.util.HashMap();
+        parameters.put("ReportTitle", "Receipt");
+        parameters.put("param", " items.id=" + receiptid);
+        parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
+        parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
+        parameters.put("itemnamep", itemmaster.getJtxtName().getText());
+        parameters.put("itemc", itemmaster.getJtxtItemcode().getText());
+        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+//    CharacterIterator s = formatter.formatToCharacterIterator(new Date());
+
+        String dtstring = sd.format(itemmaster.getJtxtIssDt().getDate());
+
+        parameters.put("dtstring", dtstring);
+        parameters.put("mtwt", itemmaster.getJtxtMTWt().getText());
+        parameters.put("pname", itemmaster.getJtxtParty().getText());
+//        parameters.put("invtype", parameters.getjcmbBillType().getSelectedItem().toString());
+//        String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date());
+//        parameters.put("date", date);
+
+        try {
+            Session session = HibernateUtil.getCurrentSession();
+            org.hibernate.internal.SessionImpl sessionImpl = (org.hibernate.internal.SessionImpl) session;
+            Connection connection = sessionImpl.connection();
+            URL myurl = MasterController.class.getResource("/print.jrxml");
+            URL myurl2 = MasterController.class.getResource("/print.jasper");
+            URL myurl3 = MasterController.class.getResource("/printready.jrxml");
+            URL myurl4 = MasterController.class.getResource("/printready.jasper");
+            System.out.println("URLLLLLLL :" + myurl.getPath());
+            JasperCompileManager.compileReportToFile(myurl.getPath(), myurl2.getPath());
+            JasperCompileManager.compileReportToFile(myurl3.getPath(), myurl4.getPath());
+//            Connection connection = connectionProvider.getConnection();
+            if (receiptid == 0) {
+                if (printtype == 0) {
+                    JasperFillManager.fillReportToFile(myurl2.getPath(), parameters, connection);
+                } else {
+                    JasperFillManager.fillReportToFile(myurl4.getPath(), parameters, connection);
+                }
+            } else {
+                if (printtype == 0) {
+                    print = JasperFillManager.fillReport(myurl2.getPath(), parameters, connection);
+                } else {
+                    print = JasperFillManager.fillReport(myurl4.getPath(), parameters, connection);
+                }
+            }
+            System.err.println("Print :" + print + " Filling time : " + (System.currentTimeMillis() - start));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return print;
+    }
+
+    private void view(JasperPrint print) throws JRException {
+        long start = System.currentTimeMillis();
+        JasperViewer.viewReport(print, false);
+        System.err.println("Printing time : " + (System.currentTimeMillis() - start));
+    }
+
+    /**
+     *
+     */
+    public void print(JasperPrint print) throws JRException {
+        long start = System.currentTimeMillis();
+        JasperPrintManager.printReport(print, true);
+        System.err.println("Printing time : " + (System.currentTimeMillis() - start));
     }
 
     @FXML
@@ -1180,7 +1289,7 @@ public class MasterController implements Initializable {
 
     @FXML
     private void handleLast() {
-         setCurrentPage(totalPages - ONE);
+        setCurrentPage(totalPages - ONE);
         getItem(currentPage);
     }
 
@@ -1315,12 +1424,12 @@ public class MasterController implements Initializable {
         return currentPage;
     }
 
-
-    private int getTotalItems(){
+    private int getTotalItems() {
         Pageable pageable = new PageRequest(0, PAGE_SIZE);
         Page<Items> items = masterService.findAll(pageable);
         return items.getTotalPages();
     }
+
     private void getItem(int page) {
         Pageable pageable = new PageRequest(page, PAGE_SIZE);
         Page<Items> items = masterService.findAll(pageable);
@@ -1337,7 +1446,7 @@ public class MasterController implements Initializable {
             listItemKarigarAccessry();
             //listItemJadtarAccessry();
             //listItemReadyAccessry();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.err.print("getItem had Null value");
         }
     }
@@ -1737,15 +1846,13 @@ public class MasterController implements Initializable {
         return jadtarmstService.findAll();
     }
 
-    private List<Acntmst>getAcntmst() {
+    private List<Acntmst> getAcntmst() {
         return acntmstService.findAll();
     }
 
     private List<Customaccess> getAccessoryDetails() {
         return customaccessService.findAll();
     }
-
-
 
     private void populateComboBox() {
         ObservableList<String> itemCodes = FXCollections.observableArrayList();
