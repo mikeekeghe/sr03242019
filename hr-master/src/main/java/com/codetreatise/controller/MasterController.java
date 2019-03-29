@@ -1168,7 +1168,7 @@ public class MasterController implements Initializable {
 
     @FXML
     public void handlePrintImage(ActionEvent e) {
-        try {
+   /*     try {
             System.out.println("filing..");
             JasperPrint print = fill(getCurrentRecord(), 1);
             if (print != null) {
@@ -1180,9 +1180,9 @@ public class MasterController implements Initializable {
         } catch (Exception ex) {
             System.out.println("error in Print:" + ex);
         }
-
+*/
     }
-
+/*
     public JasperPrint fill(int receiptid, int printtype) {
         JasperPrint print = null;
         long start = System.currentTimeMillis();
@@ -1246,15 +1246,14 @@ public class MasterController implements Initializable {
         System.err.println("Printing time : " + (System.currentTimeMillis() - start));
     }
 
-    /**
-     *
-     */
+   
+    
     public void print(JasperPrint print) throws JRException {
         long start = System.currentTimeMillis();
         JasperPrintManager.printReport(print, true);
         System.err.println("Printing time : " + (System.currentTimeMillis() - start));
     }
-
+ */
     @FXML
     public void handleScanReadyImage() {
 
