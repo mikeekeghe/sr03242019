@@ -20,6 +20,11 @@ public class StageManager {
 
     private static final Logger LOG = getLogger(StageManager.class);
     private final Stage primaryStage;
+
+    public SpringFXMLLoader getSpringFXMLLoader() {
+        return springFXMLLoader;
+    }
+
     private final SpringFXMLLoader springFXMLLoader;
 
     public StageManager(SpringFXMLLoader springFXMLLoader, Stage stage) {

@@ -9,14 +9,19 @@ import com.codetreatise.view.FxmlView;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -27,6 +32,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
@@ -206,9 +212,14 @@ public class ItemsController implements Initializable {
                         imageView = new ImageView(image);
                         imageView.minHeight(100);
                         imageView.minWidth(100);
+                        imageView.setOnMouseClicked(event -> {
+                            stageManager.switchScene(FxmlView.ITEM_MASTER);
+                            MasterController controller = (MasterController) stageManager.getSpringFXMLLoader().getController();
+                            controller.initializeFromItemListing(item);
+                        });
                     } catch (SQLException e) {
                         e.printStackTrace();
-                    }catch(NullPointerException ex){
+                    } catch (NullPointerException ex) {
                         System.err.println(ex);
                     }
                     VBox vbox = new VBox();

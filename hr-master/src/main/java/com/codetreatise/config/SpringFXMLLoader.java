@@ -2,6 +2,9 @@ package com.codetreatise.config;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
+import com.codetreatise.bean.Items;
+import com.codetreatise.controller.MasterController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Component;
  * once the Spring Application context has been bootstrapped.
  */
 @Component
-public class SpringFXMLLoader {
+public class SpringFXMLLoader<T> {
     private final ResourceBundle resourceBundle;
     private final ApplicationContext context;
+    private T controller;
+
 
     @Autowired
     public SpringFXMLLoader(ApplicationContext context, ResourceBundle resourceBundle) {
@@ -24,11 +29,20 @@ public class SpringFXMLLoader {
         this.context = context;
     }
 
-    public Parent load(String fxmlPath) throws IOException {      
+    public Parent load(String fxmlPath) throws IOException {
+        Parent root ;
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean); //Spring now FXML Controller Factory
         loader.setResources(resourceBundle);
         loader.setLocation(getClass().getResource(fxmlPath));
-        return loader.load();
+        loader.setControllerFactory(context::getBean);
+        root = loader.load();
+        controller = loader.getController() ;
+        return root;
     }
+
+    public T getController() {
+        return controller;
+    }
+
 }

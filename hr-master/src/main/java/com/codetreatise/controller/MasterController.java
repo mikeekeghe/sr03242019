@@ -455,6 +455,10 @@ public class MasterController implements Initializable {
         setAllTabMoveFunctionalities();
     }
 
+    void initializeFromItemListing(Items items) {
+        setCurrentPage(Math.toIntExact(items.getId()-ONE));
+        getItem(currentPage);
+    }
     private void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
@@ -1190,6 +1194,7 @@ public class MasterController implements Initializable {
         java.util.Map parameters = new java.util.HashMap();
         parameters.put("ReportTitle", "Receipt");
         parameters.put("param", " items.id=" + receiptid);
+
         parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
         parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
         parameters.put("itemnamep", itemmaster.getJtxtName().getText());
