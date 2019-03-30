@@ -1172,9 +1172,9 @@ public class MasterController implements Initializable {
 
     @FXML
     public void handlePrintImage(ActionEvent e) {
-   /*     try {
+        try {
             System.out.println("filing..");
-            JasperPrint print = fill(getCurrentRecord(), 1);
+            JasperPrint print = fill(items.getId().intValue(), 1);
             if (print != null) {
                 view(print);
                 print(print);
@@ -1184,9 +1184,9 @@ public class MasterController implements Initializable {
         } catch (Exception ex) {
             System.out.println("error in Print:" + ex);
         }
-*/
+
     }
-/*
+
     public JasperPrint fill(int receiptid, int printtype) {
         JasperPrint print = null;
         long start = System.currentTimeMillis();
@@ -1194,20 +1194,26 @@ public class MasterController implements Initializable {
         java.util.Map parameters = new java.util.HashMap();
         parameters.put("ReportTitle", "Receipt");
         parameters.put("param", " items.id=" + receiptid);
+        
+        
+//        parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
+//        parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
+//        parameters.put("itemnamep", itemmaster.getJtxtName().getText());
+//        parameters.put("itemc", itemmaster.getJtxtItemcode().getText());
 
-        parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
-        parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
-        parameters.put("itemnamep", itemmaster.getJtxtName().getText());
-        parameters.put("itemc", itemmaster.getJtxtItemcode().getText());
+        parameters.put("knamep", items.getItemKarigar().toString());
+        parameters.put("jnamep", items.getItemJadtar().toString());
+        parameters.put("itemnamep", items.getItemname().toString());
+        parameters.put("itemc", items.getItemcode().toString());
         Format formatter = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
 //    CharacterIterator s = formatter.formatToCharacterIterator(new Date());
 
-        String dtstring = sd.format(itemmaster.getJtxtIssDt().getDate());
+        String dtstring = sd.format(items.getItemdate());
 
         parameters.put("dtstring", dtstring);
-        parameters.put("mtwt", itemmaster.getJtxtMTWt().getText());
-        parameters.put("pname", itemmaster.getJtxtParty().getText());
+        parameters.put("mtwt", items.getFine().toString());
+        parameters.put("pname", items.getItemReady().toString());
 //        parameters.put("invtype", parameters.getjcmbBillType().getSelectedItem().toString());
 //        String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date());
 //        parameters.put("date", date);
@@ -1244,6 +1250,7 @@ public class MasterController implements Initializable {
         }
         return print;
     }
+ 
 
     private void view(JasperPrint print) throws JRException {
         long start = System.currentTimeMillis();
@@ -1258,7 +1265,7 @@ public class MasterController implements Initializable {
         JasperPrintManager.printReport(print, true);
         System.err.println("Printing time : " + (System.currentTimeMillis() - start));
     }
- */
+ 
     @FXML
     public void handleScanReadyImage() {
 
