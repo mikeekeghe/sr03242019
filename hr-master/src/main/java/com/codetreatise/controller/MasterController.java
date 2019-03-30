@@ -1194,8 +1194,8 @@ public class MasterController implements Initializable {
         java.util.Map parameters = new java.util.HashMap();
         parameters.put("ReportTitle", "Receipt");
         parameters.put("param", " items.id=" + receiptid);
-        
-        
+
+
 //        parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
 //        parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
 //        parameters.put("itemnamep", itemmaster.getJtxtName().getText());
@@ -1250,7 +1250,7 @@ public class MasterController implements Initializable {
         }
         return print;
     }
- 
+
 
     private void view(JasperPrint print) throws JRException {
         long start = System.currentTimeMillis();
@@ -1265,7 +1265,7 @@ public class MasterController implements Initializable {
         JasperPrintManager.printReport(print, true);
         System.err.println("Printing time : " + (System.currentTimeMillis() - start));
     }
- 
+
     @FXML
     public void handleScanReadyImage() {
 
@@ -1411,7 +1411,6 @@ public class MasterController implements Initializable {
     public void handleSearchByCode() {
         int item = codeComboBox.getSelectionModel().getSelectedIndex();
         getItem(item);
-
     }
 
     @FXML

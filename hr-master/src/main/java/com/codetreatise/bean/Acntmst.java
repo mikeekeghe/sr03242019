@@ -150,7 +150,7 @@ public class Acntmst {
 
     @Override
     public String toString() {
-        return String.format("%s %s", alias,name);
+        return name;
     }
 
 }

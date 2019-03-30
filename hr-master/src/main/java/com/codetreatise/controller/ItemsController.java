@@ -6,22 +6,18 @@ import com.codetreatise.repository.ItemsRepository;
 import com.codetreatise.service.*;
 import com.codetreatise.view.FxmlView;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.Expressions;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -29,10 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
@@ -51,11 +45,14 @@ public class ItemsController implements Initializable {
 
     private static final int COLUMNS = 3;
 
-    // Total number of pages
-    private int pages = ZERO;
-
     // Current page
+    private Page<Items> itemsPage;
+
+    // Current page number
     private int currentPage = ZERO;
+
+    // Current Total number of pages
+    private int pages = ZERO;
 
     private List<Items> itemsList;
 
@@ -74,9 +71,6 @@ public class ItemsController implements Initializable {
 
     @Autowired
     private JadtarmstService jadtarmstService;
-
-    @Autowired
-    private CustomaccessService customaccessService;
 
     @Autowired
     private AcntmstService acntmstService;
@@ -103,15 +97,18 @@ public class ItemsController implements Initializable {
     ComboBox jadtarComboBox;
 
     @FXML
-    ComboBox customAccessComboBox;
+    ComboBox acntmstComboBox;
 
+    private boolean searching = false;
+
+    private BooleanBuilder booleanBuilder = new BooleanBuilder();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateJadtarComboBox();
         populateKarigarComboBox();
         populateCustomAccessComboBox();
-        getItems(currentPage);
+        getItemsOnPage(currentPage);
         updatePagesText();
     }
 
@@ -148,7 +145,13 @@ public class ItemsController implements Initializable {
     @FXML
     private void handleFirst() {
         currentPage = ZERO;
-        getItems(currentPage);
+        if(searching)
+            getItemsOnPage(currentPage,booleanBuilder.getValue());
+        else
+            getItemsOnPage(currentPage);
+
+        updatePagesText();
+        makeList();
     }
 
 
@@ -156,7 +159,14 @@ public class ItemsController implements Initializable {
     private void handlePrevious() {
         if (getCurrentPage() != ZERO)
             setCurrentPage(currentPage -= ONE);
-        getItems(currentPage);
+
+        if(searching)
+            getItemsOnPage(currentPage,booleanBuilder.getValue());
+        else
+            getItemsOnPage(currentPage);
+
+        updatePagesText();
+        makeList();
     }
 
     @FXML
@@ -164,33 +174,45 @@ public class ItemsController implements Initializable {
         //handle zero based indexing -1
         if (getCurrentPage() < pages - ONE)
             setCurrentPage(currentPage += ONE);
-        getItems(currentPage);
+
+        if(searching)
+            getItemsOnPage(currentPage,booleanBuilder.getValue());
+        else
+            getItemsOnPage(currentPage);
+
+        updatePagesText();
+        makeList();
     }
 
     @FXML
     private void handleLast() {
         currentPage = pages - ONE;
-        getItems(currentPage);
-    }
+        if(searching)
+            getItemsOnPage(currentPage,booleanBuilder.getValue());
+        else
+            getItemsOnPage(currentPage);
 
-
-    private void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    private int getCurrentPage() {
-        return currentPage;
-    }
-
-    private void getItems(int page) {
-        Pageable pageable = new PageRequest(page, PAGE_SIZE);
-        Page<Items> items = itemsService.findAll(pageable);
-        pages = items.getTotalPages();
-        itemsList = items.getContent();
-        makeList();
         updatePagesText();
+        makeList();
     }
 
+
+
+    private void getItemsOnPage(int page) {
+       itemsPage = itemsService.findAll(new PageRequest(page, PAGE_SIZE));
+        pages = itemsPage.getTotalPages();
+        updatePagesText();
+        itemsList = itemsPage.getContent();
+        makeList();
+    }
+
+    private void getItemsOnPage(int page, Predicate booleanBuilder) {
+        itemsPage = itemsRepository.findAll(booleanBuilder, new PageRequest(page, PAGE_SIZE));
+        pages = itemsPage.getTotalPages();
+        updatePagesText();
+        itemsList = itemsPage.getContent();
+        makeList();
+    }
 
     @FXML
     private void makeList() {
@@ -251,8 +273,8 @@ public class ItemsController implements Initializable {
     }
 
     private void populateCustomAccessComboBox() {
-        List<Customaccess> options = customaccessService.findAll();
-        customAccessComboBox.setItems(FXCollections.observableArrayList(options));
+        List<Acntmst> options = acntmstService.findAll();
+        acntmstComboBox.setItems(FXCollections.observableArrayList(options));
     }
 
     // updates the value of the pagesText
@@ -262,9 +284,18 @@ public class ItemsController implements Initializable {
         pagesText.setText(page + "/" + pages);
     }
 
+    private void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    private int getCurrentPage() {
+        return currentPage;
+    }
+
+
     @FXML
     public void handleShowPage() {
-        int page = 0;
+        int page;
         if (pageNumberTextField.getText() != null) {
             try {
                 page = Integer.parseInt(pageNumberTextField.getText()) - 1;
@@ -272,7 +303,7 @@ public class ItemsController implements Initializable {
                     System.err.println("More than total pages");
                 } else {
                     currentPage = page;
-                    getItems(currentPage);
+                    getItemsOnPage(currentPage);
                     updatePagesText();
 
                 }
@@ -304,36 +335,52 @@ public class ItemsController implements Initializable {
         return text;
     }
 
+    private String getComboBox(ComboBox comboBox) {
+        return comboBox.getSelectionModel().getSelectedItem().toString();
+    }
 
     @FXML
     public void handleReset() {
+        searching = false;
         nameTextField.clear();
         karigarComboBox.getSelectionModel().clearSelection();
         jadtarComboBox.getSelectionModel().clearSelection();
-        customAccessComboBox.getSelectionModel().clearSelection();
+        acntmstComboBox.getSelectionModel().clearSelection();
         ghatWtTextField.clear();
+
+        getItemsOnPage(ZERO);
+        updatePagesText();
+        makeList();
     }
 
 
     @FXML
     public void handleSearch() {
+        searching = true;
         boolean name = checkTextField(nameTextField);
         boolean karigar = checkComboBox(karigarComboBox);
         boolean jadtar = checkComboBox(jadtarComboBox);
-        boolean customAccess = checkComboBox(customAccessComboBox);
+        boolean acntmst = checkComboBox(acntmstComboBox);
         boolean ghatWt = checkTextField(ghatWtTextField);
 
-        String searchName = getTextField(nameTextField);
+        if (name) {
+            booleanBuilder.and(QItems.items.itemname.like(Expressions.asString("%").concat(getTextField(nameTextField)).concat("%")));
+        }
+        if (karigar) {
+            booleanBuilder.and(QItems.items.karigarmst.eq(karigarmstService.findByName(getComboBox(karigarComboBox))));
+        }
+        if (jadtar) {
+            booleanBuilder.and(QItems.items.jadtarmst.eq(jadtarmstService.findByName(getComboBox(jadtarComboBox))));
+        }
+        if (acntmst) {
+            booleanBuilder.and(QItems.items.acntmst.eq(acntmstService.findByName(getComboBox(acntmstComboBox))));
+        }
+        if (ghatWt) {
+            booleanBuilder.and(QItems.items.itemKarigar.ghatwt.eq(Double.valueOf(getTextField(ghatWtTextField))));
+        }
 
-        QItems qItems = QItems.items;
-        BooleanExpression booleanExpression = qItems.itemname.like(Expressions.asString("%").concat(searchName).concat("%"));
-        Pageable pageable = new PageRequest(currentPage, PAGE_SIZE);
-        Page<Items> itemsPage = itemsRepository.findAll(booleanExpression, pageable);
-        itemsList = itemsPage.getContent();
-        this.pages = itemsPage.getTotalPages();
-        makeList();
-        updatePagesText();
+        setCurrentPage(ZERO);
+        getItemsOnPage(ZERO,booleanBuilder.getValue());
     }
-
 
 }
