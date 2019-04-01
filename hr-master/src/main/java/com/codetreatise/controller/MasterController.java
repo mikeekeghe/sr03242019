@@ -20,6 +20,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.swing.JRViewer;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -1171,100 +1176,35 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage(ActionEvent e) {
+    public void handlePrintImage() {
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
+        InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
+        JasperReport jasperReport = null;
         try {
-            System.out.println("filing..");
-            JasperPrint print = fill(items.getId().intValue(), 1);
-            if (print != null) {
-                view(print);
-                print(print);
-                print = null;
-            }
-            System.out.println("Print...");
-        } catch (Exception ex) {
-            System.out.println("error in Print:" + ex);
-        }
+            jasperReport = JasperCompileManager.compileReport(inputStream);
 
-    }
-
-    public JasperPrint fill(int receiptid, int printtype) {
-        JasperPrint print = null;
-        long start = System.currentTimeMillis();
-        //Preparing parameters
-        java.util.Map parameters = new java.util.HashMap();
-        parameters.put("ReportTitle", "Receipt");
-        parameters.put("param", " items.id=" + receiptid);
-
-
-//        parameters.put("knamep", itemmaster.getJtxtKarigar().getText());
-//        parameters.put("jnamep", itemmaster.getJtxtJadtar().getText());
-//        parameters.put("itemnamep", itemmaster.getJtxtName().getText());
-//        parameters.put("itemc", itemmaster.getJtxtItemcode().getText());
-
-        parameters.put("knamep", items.getItemKarigar().toString());
-        parameters.put("jnamep", items.getItemJadtar().toString());
-        parameters.put("itemnamep", items.getItemname().toString());
-        parameters.put("itemc", items.getItemcode().toString());
-        Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
-//    CharacterIterator s = formatter.formatToCharacterIterator(new Date());
-
-        String dtstring = sd.format(items.getItemdate());
-
-        parameters.put("dtstring", dtstring);
-        parameters.put("mtwt", items.getFine().toString());
-        parameters.put("pname", items.getItemReady().toString());
-//        parameters.put("invtype", parameters.getjcmbBillType().getSelectedItem().toString());
-//        String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Date());
-//        parameters.put("date", date);
-
-        try {
-            Session session = HibernateUtil.getCurrentSession();
-            org.hibernate.internal.SessionImpl sessionImpl = (org.hibernate.internal.SessionImpl) session;
-            Connection connection = sessionImpl.connection();
-            URL myurl = MasterController.class.getResource("/print.jrxml");
-            URL myurl2 = MasterController.class.getResource("/print.jasper");
-            URL myurl3 = MasterController.class.getResource("/printready.jrxml");
-            URL myurl4 = MasterController.class.getResource("/printready.jasper");
-            System.out.println("URLLLLLLL :" + myurl.getPath());
-            JasperCompileManager.compileReportToFile(myurl.getPath(), myurl2.getPath());
-            JasperCompileManager.compileReportToFile(myurl3.getPath(), myurl4.getPath());
-//            Connection connection = connectionProvider.getConnection();
-            if (receiptid == 0) {
-                if (printtype == 0) {
-                    JasperFillManager.fillReportToFile(myurl2.getPath(), parameters, connection);
-                } else {
-                    JasperFillManager.fillReportToFile(myurl4.getPath(), parameters, connection);
-                }
-            } else {
-                if (printtype == 0) {
-                    print = JasperFillManager.fillReport(myurl2.getPath(), parameters, connection);
-                } else {
-                    print = JasperFillManager.fillReport(myurl4.getPath(), parameters, connection);
-                }
-            }
-            System.err.println("Print :" + print + " Filling time : " + (System.currentTimeMillis() - start));
-
-        } catch (Exception e) {
+        } catch (JRException e) {
             e.printStackTrace();
         }
-        return print;
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+        JRPdfExporter exporter = new JRPdfExporter();
+
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(
+                new SimpleOutputStreamExporterOutput("employeeReport.pdf"));
+        try {
+            exporter.exportReport();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+
     }
 
-
-    private void view(JasperPrint print) throws JRException {
-        long start = System.currentTimeMillis();
-        JasperViewer.viewReport(print, false);
-        System.err.println("Printing time : " + (System.currentTimeMillis() - start));
-    }
-
-   
-    
-    public void print(JasperPrint print) throws JRException {
-        long start = System.currentTimeMillis();
-        JasperPrintManager.printReport(print, true);
-        System.err.println("Printing time : " + (System.currentTimeMillis() - start));
-    }
 
     @FXML
     public void handleScanReadyImage() {

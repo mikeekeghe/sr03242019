@@ -8,7 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MasterServiceImpl implements MasterService {
@@ -59,5 +62,22 @@ public class MasterServiceImpl implements MasterService {
     }
 
     public Items findByItemname(String itemname){ return masterRepository.findByItemname(itemname); }
+    @Override
+    public List<Map<String, Object>> report(Long id) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Items items = masterRepository.findOne(id);
+        Map<String, Object> item = new HashMap<>();
+     //   item.put("itemdate", items.getItemKarigar().getIssuedate());
+     //  item.put("country", items.getItemcode());
+        item.put("name", items.getItemname());
+      //  item.put("scanimage", items.getScanImage());
+       // item.put("party", items.getAcntmst().toString());
+      //  item.put("karigar", items.getKarigarmst().toString());
+       // item.put("jadtar", items.getJadtarmst().toString());
+      //  item.put("ghatgrswt", items.getItemKarigar().getGhatwt());
+     //   item.put("karigarMtWt", items.getItemKarigar().getMtwt());
+        result.add(item);
 
+        return result;
+    }
 }

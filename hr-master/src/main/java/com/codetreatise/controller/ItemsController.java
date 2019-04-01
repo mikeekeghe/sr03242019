@@ -376,11 +376,13 @@ public class ItemsController implements Initializable {
             booleanBuilder.and(QItems.items.acntmst.eq(acntmstService.findByName(getComboBox(acntmstComboBox))));
         }
         if (ghatWt) {
-            booleanBuilder.and(QItems.items.itemKarigar.ghatwt.eq(Double.valueOf(getTextField(ghatWtTextField))));
+            try {
+                booleanBuilder.and(QItems.items.itemKarigar.ghatwt.eq(Double.valueOf(getTextField(ghatWtTextField))));
+            }catch (NumberFormatException e) {
+                System.err.print("GhatWt entered threw format exception");
+            }
         }
-
         setCurrentPage(ZERO);
         getItemsOnPage(ZERO,booleanBuilder.getValue());
     }
-
 }

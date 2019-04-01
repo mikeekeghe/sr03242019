@@ -3,6 +3,7 @@ package com.codetreatise.service.impl;
 import com.codetreatise.bean.Items;
 import com.codetreatise.repository.ItemsRepository;
 import com.codetreatise.service.ItemsService;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ItemsServiceImpl implements ItemsService {
@@ -65,9 +69,7 @@ public class ItemsServiceImpl implements ItemsService {
         return itemsRepository.findAll(pageable);
     }
 
-    public EntityManager getEm() {
-        return em;
-    }
 
 
 }
+

@@ -71,7 +71,7 @@
                                        <children>
                                           <ImageView fx:id="addImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
+                                                <Image url="images/drawable-hdpi/ic_add_circle_green_800_48dp.png" />
                                              </image>
                                           </ImageView>
                                           <Button fx:id="btnAdd" layoutX="-5.0" layoutY="-11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -89,7 +89,7 @@
                                        <children>
                                           <ImageView fx:id="updateImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
+                                                <Image url="images/drawable-hdpi/ic_mode_edit_amber_800_48dp.png" />
                                              </image>
                                           </ImageView>
                                           <Button fx:id="btnUpdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
@@ -110,7 +110,7 @@
                                        <children>
                                           <ImageView fx:id="saveImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/drawable-hdpi/ic_save_grey_600_48dp.png" />
+                                                <Image url="images/drawable-hdpi/ic_save_grey_600_48dp.png" />
                                              </image>
                                           </ImageView>
                                           <Button fx:id="saveButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSave" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
@@ -131,7 +131,7 @@
                                        <children>
                                           <ImageView fx:id="deleteImageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/drawable-hdpi/ic_delete_red_800_48dp.png" />
+                                                <Image url="images/drawable-hdpi/ic_delete_red_800_48dp.png" />
                                              </image>
                                           </ImageView>
                                           <Button fx:id="btnDelete" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDelete" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" />
@@ -175,7 +175,7 @@
                                  <children>
                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/store.png" />
+                                          <Image url="images/store.png" />
                                        </image>
                                     </ImageView>
                                     <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -195,7 +195,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/loads.png" />
+                                    <Image url="images/loads.png" />
                                  </image>
                               </ImageView>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemListing" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -217,7 +217,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/bags.png" />
+                                    <Image url="images/bags.png" />
                                  </image>
                               </ImageView>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleKarigarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -239,7 +239,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/shopping.png" />
+                                    <Image url="images/shopping.png" />
                                  </image>
                               </ImageView>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleJadtarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -261,7 +261,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/shop.png" />
+                                    <Image url="images/shop.png" />
                                  </image>
                               </ImageView>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePartyMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
@@ -283,7 +283,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/ecommerce.png" />
+                                    <Image url="images/ecommerce.png" />
                                  </image>
                               </ImageView>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAccessoriesMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
