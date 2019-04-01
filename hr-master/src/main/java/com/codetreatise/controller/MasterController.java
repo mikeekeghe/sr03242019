@@ -7,8 +7,6 @@ import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.MasterRepository;
 import com.codetreatise.service.*;
 import com.codetreatise.view.FxmlView;
-import com.querydsl.core.types.Path;
-import com.querydsl.jpa.hibernate.HibernateUtil;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +22,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.swing.JRViewer;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -38,15 +35,9 @@ import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import static java.lang.Double.parseDouble;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -55,25 +46,15 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
-import org.apache.commons.collections.map.HashedMap;
-import org.h2.engine.Session;
 
 @Controller
 public class MasterController implements Initializable {
@@ -461,9 +442,10 @@ public class MasterController implements Initializable {
     }
 
     void initializeFromItemListing(Items items) {
-        setCurrentPage(Math.toIntExact(items.getId()-ONE));
+        setCurrentPage(Math.toIntExact(items.getId() - ONE));
         getItem(currentPage);
     }
+
     private void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
@@ -1176,19 +1158,38 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage() {
+    public void handlePrintImage() throws SQLException, IOException {  
+        Map<String, Object> parameters = new HashMap<>();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
-        InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
+        InputStream inputStream = this.getClass().getResourceAsStream("/reports/print.jrxml");
         JasperReport jasperReport = null;
+
         try {
             jasperReport = JasperCompileManager.compileReport(inputStream);
 
         } catch (JRException e) {
             e.printStackTrace();
         }
+      
+
+ parameters.put("ReportTitle", "Receipt");
+        parameters.put("param", " items.id=" + items.getId().toString());
+        parameters.put("knamep", items.getItemKarigar().toString());
+        parameters.put("jnamep", items.getJadtarmst().getName());
+        parameters.put("itemnamep", items.getKarigarmst().getName());
+        parameters.put("itemcode", items.getId().toString());
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+        String dtstring = sd.format(items.getItemdate());
+        parameters.put("dtstring", dtstring);
+        parameters.put("mtwt", items.getItemKarigar().getMtwt().toString());
+        parameters.put("pname", items.getAcntmst().getName());
+        InputStream imageStream = items.getScanImage().getBinaryStream();
+        BufferedImage image = ImageIO.read(imageStream);        
+       parameters.put("scanimage", image);
+
         JasperPrint jasperPrint = null;
         try {
-            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         } catch (JRException e) {
             e.printStackTrace();
         }
@@ -1204,7 +1205,6 @@ public class MasterController implements Initializable {
         }
 
     }
-
 
     @FXML
     public void handleScanReadyImage() {
