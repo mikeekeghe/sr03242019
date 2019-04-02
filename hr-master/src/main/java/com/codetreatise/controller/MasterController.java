@@ -40,6 +40,7 @@ import java.io.InputStream;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -1164,7 +1165,7 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage() {
+    public void handlePrintImage() throws SQLException, IOException {
         Map<String, Object> parameters = new HashMap<>();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
         InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
