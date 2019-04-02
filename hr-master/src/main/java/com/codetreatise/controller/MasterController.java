@@ -49,7 +49,11 @@ import java.util.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -139,6 +143,25 @@ public class MasterController implements Initializable {
     @Lazy
     @Autowired
     private StageManager stageManager;
+    
+      @FXML
+    Text lblItemMaster;
+
+    @FXML
+    Text ibiItemListing;
+
+    @FXML
+    Text lblKarigarMaster;
+
+    @FXML
+    Text lblJadtarMaster;
+
+    @FXML
+    Text lblPartyMaster;
+
+    @FXML
+    Text lblAccessoryMaster;
+
 
     @FXML
     TextField itemCodeField;
@@ -915,6 +938,60 @@ public class MasterController implements Initializable {
                 }
             }
         });
+            lblItemMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
+        ibiItemListing.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemListing();
+                }
+            }
+        });
+
+        lblKarigarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleKarigarMaster();
+                }
+            }
+        });
+
+        lblJadtarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleJadtarMaster();
+                }
+            }
+        });
+
+        lblPartyMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handlePartyMaster();
+                }
+            }
+        });
+
+        lblAccessoryMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
     }
 
     public void checkKeyPressed(javafx.scene.input.KeyEvent myEvent2) throws InterruptedException {
