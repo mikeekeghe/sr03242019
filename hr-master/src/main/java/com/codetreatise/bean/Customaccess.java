@@ -34,14 +34,11 @@ public class Customaccess {
 
     private Timestamp datestamp = new Timestamp(new Date().getTime());
 
-
     @OneToMany(mappedBy = "customaccess")
     private List<Itemkarigaraccessry> itemkarigaraccessryList;
 
-
     @OneToMany(mappedBy = "customaccess")
     private List<Itemjadtaraccessry> itemjadtaraccessryList;
-
 
     @OneToMany(mappedBy = "customaccess")
     private List<Itemreadyaccessry> itemreadyaccessryList;

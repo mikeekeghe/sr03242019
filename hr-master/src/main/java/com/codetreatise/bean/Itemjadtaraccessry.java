@@ -12,8 +12,8 @@ public class Itemjadtaraccessry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "accessryid")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accessoryid")
     private Customaccess customaccess;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -21,7 +21,6 @@ public class Itemjadtaraccessry {
     private Itemjadtar itemjadtar;
 
     private String accessory;
-
 
     private Double qty;
 
@@ -49,6 +48,16 @@ public class Itemjadtaraccessry {
 
 
     public Itemjadtaraccessry() {
+    }
+
+
+    public Itemjadtaraccessry(String accessory, Double carat, Double weight, Double qty,Double rate, Double amount) {
+        this.accessory = accessory;
+        this.carat = carat;
+        this.weight = weight;
+        this.qty = qty;
+        this.rate = rate;
+        this.amount = amount;
     }
 
     public Long getId() {

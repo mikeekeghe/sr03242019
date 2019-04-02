@@ -5,8 +5,10 @@ import com.codetreatise.bean.Itemjadtaraccessry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ItemjadtaraccessryRepository extends JpaRepository<Itemjadtaraccessry, Long> {
 
-    Itemjadtaraccessry findByItemjadtar(Itemjadtar itemjadtar);
+    List<Itemjadtaraccessry> findByItemjadtar(Itemjadtar itemjadtar);
 }

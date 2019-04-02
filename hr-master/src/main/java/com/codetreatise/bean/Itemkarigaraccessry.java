@@ -12,12 +12,8 @@ public class Itemkarigaraccessry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemkarigarid")
-    private Itemkarigar itemkarigar;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "accessryid")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accessoryid")
     private Customaccess customaccess;
 
     private String details;
@@ -44,6 +40,9 @@ public class Itemkarigaraccessry {
 
     private Integer editid = 0;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemkarigarid")
+    private Itemkarigar itemkarigar;
 
     public Itemkarigaraccessry() {
     }
@@ -55,8 +54,7 @@ public class Itemkarigaraccessry {
         this.rate = rate;
         this.amount = amount;
     }
-    
-    
+
 
     public Long getId() {
         return id;
@@ -66,13 +64,6 @@ public class Itemkarigaraccessry {
         this.id = id;
     }
 
-    public Itemkarigar getItemkarigar() {
-        return itemkarigar;
-    }
-
-    public void setItemkarigar(Itemkarigar itemkarigar) {
-        this.itemkarigar = itemkarigar;
-    }
 
     public Customaccess getAccessryid() {
         return customaccess;
@@ -176,6 +167,14 @@ public class Itemkarigaraccessry {
 
     public void setEditid(Integer editid) {
         this.editid = editid;
+    }
+
+    public Itemkarigar getItemkarigar() {
+        return itemkarigar;
+    }
+
+    public void setItemkarigar(Itemkarigar itemkarigar) {
+        this.itemkarigar = itemkarigar;
     }
 
     @Override

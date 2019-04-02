@@ -55,7 +55,7 @@ public class ItemjadtaraccessryServiceImpl implements ItemjadtarcessryService {
     }
 
     @Override
-    public Itemjadtaraccessry findByItemjadtar(Itemjadtar itemjadtar) {
+    public List<Itemjadtaraccessry> findByItemjadtar(Itemjadtar itemjadtar) {
         return itemjadtaraccessryRepository.findByItemjadtar(itemjadtar);
     }
 

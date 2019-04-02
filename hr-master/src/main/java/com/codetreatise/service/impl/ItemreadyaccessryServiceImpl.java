@@ -55,7 +55,7 @@ public class ItemreadyaccessryServiceImpl implements ItemreadyaccessryService {
     }
 
     @Override
-    public Itemreadyaccessry findByItemready(Itemready itemready) {
+    public List<Itemreadyaccessry> findByItemready(Itemready itemready) {
         return itemreadyaccessryRepository.findByItemready(itemready);
     }
 

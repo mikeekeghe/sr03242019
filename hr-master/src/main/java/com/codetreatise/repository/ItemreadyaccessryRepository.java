@@ -7,8 +7,10 @@ import com.codetreatise.bean.Itemreadyaccessry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ItemreadyaccessryRepository extends JpaRepository<Itemreadyaccessry, Long> {
 
-    Itemreadyaccessry findByItemready(Itemready itemready);
+    List<Itemreadyaccessry> findByItemready(Itemready itemready);
 }

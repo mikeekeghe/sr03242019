@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "itemkarigar")
@@ -50,7 +51,7 @@ public class Itemkarigar {
     private Integer editid = 0;
 
     @OneToMany(mappedBy = "itemkarigar")
-    private List<Itemkarigaraccessry> itemkarigaraccessryList;
+    private List<Itemkarigaraccessry> itemkarigaraccessries;
 
     public Itemkarigar() {
     }
@@ -199,14 +200,13 @@ public class Itemkarigar {
         this.items = items;
     }
 
-    public List<Itemkarigaraccessry> getItemkarigaraccessryList() {
-        return itemkarigaraccessryList;
+    public List<Itemkarigaraccessry> getItemkarigaraccessries() {
+        return itemkarigaraccessries;
     }
 
-    public void setItemkarigaraccessryList(List<Itemkarigaraccessry> itemkarigaraccessryList) {
-        this.itemkarigaraccessryList = itemkarigaraccessryList;
+    public void setItemkarigaraccessries(List<Itemkarigaraccessry> itemkarigaraccessries) {
+        this.itemkarigaraccessries = itemkarigaraccessries;
     }
-
 
     @Override
     public String toString() {

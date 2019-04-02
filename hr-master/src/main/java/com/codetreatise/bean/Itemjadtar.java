@@ -43,7 +43,7 @@ public class Itemjadtar {
     private Integer editid = 0;
 
     @OneToMany(mappedBy = "itemjadtar")
-    private List<Itemjadtaraccessry> itemjadtaraccessryList;
+    private List<Itemjadtaraccessry> itemjadtaraccessries;
 
     public Itemjadtar() {
     }
@@ -160,12 +160,12 @@ public class Itemjadtar {
         this.editid = editid;
     }
 
-    public List<Itemjadtaraccessry> getItemjadtaraccessryList() {
-        return itemjadtaraccessryList;
+    public List<Itemjadtaraccessry> getItemjadtaraccessries() {
+        return itemjadtaraccessries;
     }
 
-    public void setItemjadtaraccessryList(List<Itemjadtaraccessry> itemjadtaraccessryList) {
-        this.itemjadtaraccessryList = itemjadtaraccessryList;
+    public void setItemjadtaraccessries(List<Itemjadtaraccessry> itemjadtaraccessries) {
+        this.itemjadtaraccessries = itemjadtaraccessries;
     }
 
     @Override

@@ -40,8 +40,10 @@ public class Itemready {
 
     private Integer editid = 0;
 
+
+
     @OneToMany(mappedBy = "itemready")
-    private List<Itemreadyaccessry> itemreadyaccessryList;
+    private List<Itemreadyaccessry> itemreadyaccessries;
 
     public Itemready() {
     }
@@ -150,12 +152,12 @@ public class Itemready {
         this.editid = editid;
     }
 
-    public List<Itemreadyaccessry> getItemreadyaccessryList() {
-        return itemreadyaccessryList;
+    public List<Itemreadyaccessry> getItemreadyaccessries() {
+        return itemreadyaccessries;
     }
 
-    public void setItemreadyaccessryList(List<Itemreadyaccessry> itemreadyaccessryList) {
-        this.itemreadyaccessryList = itemreadyaccessryList;
+    public void setItemreadyaccessries(List<Itemreadyaccessry> itemreadyaccessries) {
+        this.itemreadyaccessries = itemreadyaccessries;
     }
 
     @Override

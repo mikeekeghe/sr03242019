@@ -12,7 +12,18 @@ public enum FxmlView {
 
         @Override
         public String getFxmlFile() {
-            return "/fxml/Sudoku.fxml";
+            return "/fxml/Master.fxml";
+        }
+    },
+    LOGIN {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("login.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/fxml/Login.fxml";
         }
     },
     ITEM_MASTER {
@@ -46,17 +57,6 @@ public enum FxmlView {
         @Override
         public String getFxmlFile() {
             return "/fxml/App.fxml";
-        }
-    },
-    LOGIN {
-        @Override
-		public String getTitle() {
-            return getStringFromResourceBundle("login.title");
-        }
-
-        @Override
-		public String getFxmlFile() {
-            return "/fxml/Login.fxml";
         }
     };
     

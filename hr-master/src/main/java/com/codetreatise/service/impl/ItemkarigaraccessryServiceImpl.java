@@ -55,7 +55,7 @@ public class ItemkarigaraccessryServiceImpl implements ItemkarigaraccessryServic
     }
 
     @Override
-    public Itemkarigaraccessry findByItemkarigar(Itemkarigar itemkarigar) {
+    public List<Itemkarigaraccessry> findByItemkarigar(Itemkarigar itemkarigar) {
         return itemkarigaraccessryRepository.findByItemkarigar(itemkarigar);
     }
 

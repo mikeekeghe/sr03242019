@@ -37,15 +37,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
 import java.util.*;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.AnchorPane;
@@ -92,10 +92,6 @@ public class MasterController implements Initializable {
 
     private ObservableList<Itemreadyaccessry> itemreadyaccessries = FXCollections.observableArrayList();
 
-    // true addItem save
-    // false updateItem update
-    private boolean editStatus = true;
-
     // Morena
 //	Manager manager;
 //	List<Device> devices;
@@ -131,7 +127,7 @@ public class MasterController implements Initializable {
     private ItemkarigaraccessryService itemkarigaraccessryService;
 
     @Autowired
-    private ItemjadtarcessryService itemjadtarcessryService;
+    private ItemjadtarcessryService itemjadtaccessryService;
 
     @Autowired
     private ItemreadyaccessryService itemreadyaccessryService;
@@ -427,10 +423,24 @@ public class MasterController implements Initializable {
         setTotalPages(getTotalItems());
         getItem(totalPages - ONE);
         setCurrentPage(totalPages - ONE);
+        setup();
+        setupTables();
+
+
+    }
+
+    void initializeFromItemListing(Items items) {
+        setTotalPages(getTotalItems());
+        setCurrentPage(Math.toIntExact(items.getId() - ONE));
+        getItem(currentPage);
+        setup();
+        setupTables();
+    }
+
+    public void setup() {
         Runnable populate = this::populateComboBox;
         populate.run();
 
-        setupTables();
         // Autocomplete items
         TextFields.bindAutoCompletion(partyNameField, getAcntmst());
         TextFields.bindAutoCompletion(karigarNameField, getKarigar());
@@ -441,10 +451,6 @@ public class MasterController implements Initializable {
         setAllTabMoveFunctionalities();
     }
 
-    void initializeFromItemListing(Items items) {
-        setCurrentPage(Math.toIntExact(items.getId() - ONE));
-        getItem(currentPage);
-    }
 
     private void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
@@ -792,7 +798,7 @@ public class MasterController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     karigar_GrossField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                     setKarigar_Amount();
@@ -803,7 +809,7 @@ public class MasterController implements Initializable {
         karigar_WeightField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     karigar_WeightField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                     setKarigar_Amount();
@@ -813,7 +819,7 @@ public class MasterController implements Initializable {
         karigar_RateField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     karigar_RateField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
 
@@ -826,7 +832,7 @@ public class MasterController implements Initializable {
 
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     jadtar_CaratField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                     jadtar_WeightField.setDisable(true);
@@ -838,7 +844,7 @@ public class MasterController implements Initializable {
         jadtar_WeightField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     jadtar_WeightField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                     jadtar_CaratField.setDisable(true);
@@ -851,7 +857,7 @@ public class MasterController implements Initializable {
         jadtar_Qtyield.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     jadtar_Qtyield.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -861,7 +867,7 @@ public class MasterController implements Initializable {
         jadtar_RateField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     jadtar_RateField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -872,7 +878,7 @@ public class MasterController implements Initializable {
         ready_CaratField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     ready_CaratField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -882,7 +888,7 @@ public class MasterController implements Initializable {
         ready_WeightField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     ready_WeightField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -892,7 +898,7 @@ public class MasterController implements Initializable {
         ready_QtyField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     ready_QtyField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -902,7 +908,7 @@ public class MasterController implements Initializable {
         ready_RateField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
-                    String newValue) {
+                                String newValue) {
                 if (!newValue.matches("[^\\^0-9.]")) {
                     ready_RateField.setText(newValue.replaceAll("[^\\^0-9.]", ""));
                 }
@@ -1158,38 +1164,19 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage() throws SQLException, IOException {  
-        Map<String, Object> parameters = new HashMap<>();
+    public void handlePrintImage() {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
-        InputStream inputStream = this.getClass().getResourceAsStream("/reports/print.jrxml");
+        InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
         JasperReport jasperReport = null;
-
         try {
             jasperReport = JasperCompileManager.compileReport(inputStream);
 
         } catch (JRException e) {
             e.printStackTrace();
         }
-      
-
- parameters.put("ReportTitle", "Receipt");
-        parameters.put("param", " items.id=" + items.getId().toString());
-        parameters.put("knamep", items.getItemKarigar().toString());
-        parameters.put("jnamep", items.getJadtarmst().getName());
-        parameters.put("itemnamep", items.getKarigarmst().getName());
-        parameters.put("itemcode", items.getId().toString());
-        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
-        String dtstring = sd.format(items.getItemdate());
-        parameters.put("dtstring", dtstring);
-        parameters.put("mtwt", items.getItemKarigar().getMtwt().toString());
-        parameters.put("pname", items.getAcntmst().getName());
-        InputStream imageStream = items.getScanImage().getBinaryStream();
-        BufferedImage image = ImageIO.read(imageStream);        
-       parameters.put("scanimage", image);
-
         JasperPrint jasperPrint = null;
         try {
-            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
         } catch (JRException e) {
             e.printStackTrace();
         }
@@ -1205,6 +1192,7 @@ public class MasterController implements Initializable {
         }
 
     }
+
 
     @FXML
     public void handleScanReadyImage() {
@@ -1247,7 +1235,7 @@ public class MasterController implements Initializable {
     @FXML
     public void handleItemAdd() {
         if (check4MandatoryFields()) {
-            editStatus = true;
+            isEditMode = true;
             enableEditMode();
             listNewItem();
         }
@@ -1285,14 +1273,14 @@ public class MasterController implements Initializable {
 
     @FXML
     public void handleItemUpdate() {
-        editStatus = false;
+        isEditMode = false;
         enableEditMode();
     }
 
     @FXML
     public void handleSaveItem() {
         disableEditMode();
-        if (editStatus) {
+        if (isEditMode) {
             // Adding new item
             getNewItem();
             getNewItemkarigar();
@@ -1387,18 +1375,22 @@ public class MasterController implements Initializable {
         this.itemkarigar = this.items.getItemKarigar();
         this.itemjadtar = this.items.getItemJadtar();
         this.itemready = this.items.getItemReady();
+        listItem();
 
-        try {
-            listItem();
+        if (this.itemkarigar != null)
             listItemKarigar();
+        if (this.itemjadtar != null)
             listItemJadtar();
+        if (this.itemready != null)
             listItemReady();
+
+        if (this.itemkarigaraccessries != null)
             listItemKarigarAccessry();
-            //listItemJadtarAccessry();
-            //listItemReadyAccessry();
-        } catch (NullPointerException e) {
-            System.err.print("getItem had Null value");
-        }
+        if (this.itemjadtaraccessries != null)
+            listItemJadtarAccessry();
+        if (this.itemreadyaccessries != null)
+            listItemReadyAccessry();
+
     }
 
     private void listItem() {
@@ -1480,19 +1472,19 @@ public class MasterController implements Initializable {
 
     private void listItemKarigarAccessry() {
         karigar_TableView.getItems().clear();
-        itemkarigaraccessries.add(itemkarigaraccessryService.findByItemkarigar(this.itemkarigar));
+        itemkarigaraccessries.addAll(itemkarigaraccessryService.findByItemkarigar(this.itemkarigar));
         karigar_TableView.setItems(itemkarigaraccessries);
     }
 
     private void listItemJadtarAccessry() {
         jadtar_TableView.getItems().clear();
-        itemjadtaraccessries.add(itemjadtarcessryService.findByItemjadtar(this.itemjadtar));
+        itemjadtaraccessries.addAll(itemjadtaccessryService.findByItemjadtar(this.itemjadtar));
         jadtar_TableView.setItems(itemjadtaraccessries);
     }
 
     private void listItemReadyAccessry() {
         ready_TableView.getItems().clear();
-        itemreadyaccessries.add(itemreadyaccessryService.findByItemready(this.itemready));
+        itemreadyaccessries.addAll(itemreadyaccessryService.findByItemready(this.itemready));
         ready_TableView.setItems(itemreadyaccessries);
     }
 
@@ -1689,6 +1681,9 @@ public class MasterController implements Initializable {
         previousButton.setDisable(true);
         nextButton.setDisable(true);
         lastButton.setDisable(true);
+
+
+
     }
 
     private void disableEditMode() {
@@ -1747,6 +1742,10 @@ public class MasterController implements Initializable {
         previousButton.setDisable(false);
         nextButton.setDisable(false);
         lastButton.setDisable(false);
+
+        karigar_TableView.setEditable(false);
+        jadtar_TableView.setEditable(false);
+        ready_TableView.setEditable(false);
     }
 
     private void updateItem() {
@@ -1826,19 +1825,22 @@ public class MasterController implements Initializable {
     }
 
     private void setupTables() {
+
+        karigar_TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         karigar_DetailColumn.setCellValueFactory(new PropertyValueFactory<>("details"));
         karigar_GrossColumn.setCellValueFactory(new PropertyValueFactory<>("gross"));
         karigar_WeightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         karigar_RateColumn.setCellValueFactory(new PropertyValueFactory<>("rate"));
         karigar_AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
+        jadtar_TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         jadtar_AccessoryColumn.setCellValueFactory(new PropertyValueFactory<>("accessory"));
         jadtar_CaratColumn.setCellValueFactory(new PropertyValueFactory<>("carat"));
         jadtar_WeightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         jadtar_QtyColumn.setCellValueFactory(new PropertyValueFactory<>("qty"));
         jadtar_RateColumn.setCellValueFactory(new PropertyValueFactory<>("rate"));
-        jadtar_AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
+        ready_TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         ready_AccessoryColumn.setCellValueFactory(new PropertyValueFactory<>("accessory"));
         ready_CaratColumn.setCellValueFactory(new PropertyValueFactory<>("carat"));
         ready_WeightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
@@ -1849,63 +1851,153 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    private void getTodaysDate() {
+    private void karigar_handleToday() {
         karigar_IssueDate.setValue(LocalDate.now());
     }
 
     @FXML
-    private void getTodaysDate2() {
+    private void jadtar_handleToday() {
         jadtar_ReceiveDate.setValue(LocalDate.now());
     }
 
     @FXML
-    private void getTodaysDate3() {
+    private void ready_handleToday() {
         ready_ReadyDate.setValue(LocalDate.now());
     }
 
     private void setKarigar_Amount() {
         float newAmount = 0;
-        newAmount = (float) ((Double.parseDouble(karigar_GrossField.getText()))
-                * (Double.parseDouble(karigar_WeightField.getText()))
-                * (Double.parseDouble(karigar_RateField.getText())));
-        karigar_AmountField.setText(String.valueOf(newAmount));
+        try {
+            newAmount = (float) ((Double.parseDouble(karigar_GrossField.getText()))
+                    * (Double.parseDouble(karigar_WeightField.getText()))
+                    * (Double.parseDouble(karigar_RateField.getText())));
+            karigar_AmountField.setText(String.valueOf(newAmount));
+        } catch (NumberFormatException e) {
+            System.err.println("Number format exception setKarigarAmount");
+        }
 
     }
 
     private void setJadTar_Amount_1() {
         float newAmount = 0;
-        newAmount = (float) ((Double.parseDouble(jadtar_WeightField.getText()))
-                * (Double.parseDouble(jadtar_RateField.getText())));
-        jadtar_AmountField.setText(String.valueOf(newAmount));
-
+        try {
+            newAmount = (float) ((Double.parseDouble(jadtar_WeightField.getText()))
+                    * (Double.parseDouble(jadtar_RateField.getText())));
+            jadtar_AmountField.setText(String.valueOf(newAmount));
+        } catch (NumberFormatException e) {
+            System.err.println("Number format exception setKarigarAmount");
+        }
     }
 
     private void setJadTar_Amount_2() {
         float newAmount = 0;
-        newAmount = (float) ((Double.parseDouble(jadtar_CaratField.getText()))
-                * (Double.parseDouble(jadtar_RateField.getText())));
-        jadtar_AmountField.setText(String.valueOf(newAmount));
+        try {
+            newAmount = (float) ((Double.parseDouble(jadtar_CaratField.getText()))
+                    * (Double.parseDouble(jadtar_RateField.getText())));
+            jadtar_AmountField.setText(String.valueOf(newAmount));
+        } catch (NumberFormatException e) {
+            System.err.println("Number format exception setKarigarAmount");
+        }
+    }
+
+    @FXML
+    private void handleAddItemKarigarAccessory() {
+        Itemkarigaraccessry itemkarigaraccessry = new Itemkarigaraccessry(karigar_DetailField.getText(),
+                getDoubleFromTextField(karigar_GrossField),
+                getDoubleFromTextField(karigar_WeightField),
+                getDoubleFromTextField(karigar_RateField),
+                getDoubleFromTextField(karigar_AmountField));
+        itemkarigaraccessries.add(itemkarigaraccessry);
+        karigar_TableView.setItems(itemkarigaraccessries);
+    }
+
+    @FXML
+    private void handleUpdateItemKarigarAccessory() {
 
     }
 
     @FXML
-    private void loadKarigrRecord() {
-        setupTables();
-        karigar_TableView.getColumns().addAll(karigar_DetailColumn, karigar_GrossColumn, karigar_WeightColumn, karigar_RateColumn, karigar_AmountColumn);
-        Itemkarigaraccessry ik = new Itemkarigaraccessry(karigar_DetailField.getText(),
-                Double.parseDouble(karigar_GrossField.getText()), Double.parseDouble(karigar_WeightField.getText()), Double.parseDouble(karigar_RateField.getText()),
-                Double.parseDouble(karigar_AmountField.getText()));
-        karigar_TableView.getItems().add(ik);
+    private void handleDeleteItemKarigarAccessory() {
+
+    }
+
+
+    @FXML
+    private void handleAddItemJadtarAccessory() {
+        Itemjadtaraccessry itemjadtaraccessry = new Itemjadtaraccessry(jadtar_AccessoryField.getText(),
+                getDoubleFromTextField(jadtar_CaratField),
+                getDoubleFromTextField(jadtar_CaratField),
+                getDoubleFromTextField(jadtar_Qtyield),
+                getDoubleFromTextField(jadtar_CaratField),
+                getDoubleFromTextField(jadtar_AmountField));
+        itemjadtaraccessries.add(itemjadtaraccessry);
+        jadtar_TableView.setItems(itemjadtaraccessries);
+    }
+
+
+    @FXML
+    private void handleUpdateItemJadtarAccessory() {
 
     }
 
     @FXML
-    private void lodJadtarRecord() {
+    private void handleDeleteItemJadtarAccessory() {
+
+    }
+
+
+    @FXML
+    private void handleAddItemReadyAccessory() {
+        Itemreadyaccessry itemreadyaccessry = new Itemreadyaccessry(ready_AccessoryField.getText(),
+                getDoubleFromTextField(ready_CaratField),
+                getDoubleFromTextField(ready_WeightField),
+                getDoubleFromTextField(ready_QtyField),
+                getDoubleFromTextField(ready_RateField),
+                getDoubleFromTextField(ready_AmountField));
+        itemreadyaccessries.add(itemreadyaccessry);
+        ready_TableView.setItems(itemreadyaccessries);
+    }
+
+    @FXML
+    private void handleUpdateItemReadyAccessory() {
 
     }
 
     @FXML
-    private void loadReadyMethod() {
+    private void handleDeleteItemReadyAccessory() {
 
     }
+
+
+    private void updateDB() {
+        List<Itemkarigaraccessry> list1 = itemkarigaraccessryService.findAll();
+        for (Itemkarigaraccessry i : list1) {
+            i.setDetails(customaccessService.find(i.getAccessryid().getId()).getName());
+            itemkarigaraccessryService.update(i);
+
+        }
+        List<Itemjadtaraccessry> list2 = itemjadtaccessryService.findAll();
+        for (Itemjadtaraccessry j : list2) {
+            j.setAccessory(customaccessService.find(j.getCustomaccess().getId()).getName());
+            itemjadtaccessryService.update(j);
+
+        }
+        List<Itemreadyaccessry> list3 = itemreadyaccessryService.findAll();
+        for (Itemreadyaccessry k : list3) {
+            k.setAccessory(customaccessService.find(k.getCustomaccess().getId()).getName());
+            itemreadyaccessryService.update(k);
+
+        }
+    }
+
+    @FXML
+    public void handleDeleteItem() {
+
+    }
+
+    @FXML
+    public void handleClearItemReadyAccessory(){
+
+    }
+
 }

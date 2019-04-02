@@ -59,9 +59,10 @@
 .exit:hover {
 	-fx-background-color: linear-gradient(to right, #C51162 0%, #F50057 25%, #FF4081 50%, #FF80AB 100%);
 }
+
 .text-field {
 	-fx-background-radius: 30;
-	-fx-border-color: #BDBDBD;
+	-fx-border-color: #6D6D6d;
 	-fx-border-radius: 30;
 	-fx-focus-traversable: false;
 }
@@ -75,6 +76,29 @@
 	-fx-focus-traversable: false;
 }
 
+.text-field:editable{
+	-fx-background-radius: 30;
+	-fx-border-color: #5e92f3;
+	-fx-border-width: 3;
+	-fx-background-color: white;
+	-fx-border-radius: 30;
+	-fx-focus-traversable: false;
+	-fx-text-fill: #000000;
+}
+
+.text-field:disabled{
+	-fx-background-radius: 30;
+	-fx-border-color: #7f7f7f;
+	-fx-border-width: 3;
+	-fx-background-color: white;
+	-fx-border-radius: 30;
+	-fx-focus-traversable: false;
+	-fx-text-fill: #7f7f7f;
+}
+
+.table-view:disabled{
+	-fx-text-fill: #7f7f7f;
+}
 
 .card {
 	-fx-background-color: white;
@@ -86,21 +110,7 @@
 	-fx-background-radius: 10px;
 }
 
-.text-field {
-	-fx-background-radius: 30;
-	-fx-border-color: #82B1FF;
-	-fx-border-radius: 30;
-	-fx-focus-traversable: false;
-}
 
-.text-field:focused {
-	-fx-background-radius: 30;
-	-fx-border-color: #2962FF;
-	-fx-border-width: 3;
-	-fx-background-color: white;
-	-fx-border-radius: 30;
-	-fx-focus-traversable: false;
-}
 
 .topPane {
 	-fx-background-color: white;
