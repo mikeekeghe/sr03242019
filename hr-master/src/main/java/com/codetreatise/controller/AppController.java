@@ -33,7 +33,10 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 
@@ -73,6 +76,24 @@ public class AppController implements Initializable {
     private AcntmstService acntmstService;
 
     private ObservableList list = FXCollections.observableArrayList();
+
+    @FXML
+    Text lblItemMaster;
+
+    @FXML
+    Text ibiItemListing;
+
+    @FXML
+    Text lblKarigarMaster;
+
+    @FXML
+    Text lblJadtarMaster;
+
+    @FXML
+    Text lblPartyMaster;
+
+    @FXML
+    Text lblAccessoryMaster;
 
     @FXML
     Text tableTitle;
@@ -118,8 +139,8 @@ public class AppController implements Initializable {
 
     @FXML
     Button btnAdd;
-    
-        @FXML
+
+    @FXML
     BorderPane primaryStage;
 
     @FXML
@@ -651,6 +672,61 @@ public class AppController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        lblItemMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
+        ibiItemListing.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemListing();
+                }
+            }
+        });
+
+        lblKarigarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleKarigarMaster();
+                }
+            }
+        });
+
+        lblJadtarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleJadtarMaster();
+                }
+            }
+        });
+
+        lblPartyMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handlePartyMaster();
+                }
+            }
+        });
+
+        lblAccessoryMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
     }
 
 }
