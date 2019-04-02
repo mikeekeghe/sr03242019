@@ -1165,6 +1165,7 @@ public class MasterController implements Initializable {
 
     @FXML
     public void handlePrintImage() {
+        Map<String, Object> parameters = new HashMap<>();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
         InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
         JasperReport jasperReport = null;
@@ -1174,9 +1175,23 @@ public class MasterController implements Initializable {
         } catch (JRException e) {
             e.printStackTrace();
         }
+        parameters.put("ReportTitle", "Receipt");
+        parameters.put("param", " items.id=" + items.getId().toString());
+        parameters.put("knamep", items.getItemKarigar().toString());
+        parameters.put("jnamep", items.getJadtarmst().getName());
+        parameters.put("itemnamep", items.getKarigarmst().getName());
+        parameters.put("itemcode", items.getId().toString());
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+        String dtstring = sd.format(items.getItemdate());
+        parameters.put("dtstring", dtstring);
+        parameters.put("mtwt", items.getItemKarigar().getMtwt().toString());
+        parameters.put("pname", items.getAcntmst().getName());
+        InputStream imageStream = items.getScanImage().getBinaryStream();
+        BufferedImage image = ImageIO.read(imageStream);
+        parameters.put("scanimage", image);
         JasperPrint jasperPrint = null;
         try {
-            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+           jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         } catch (JRException e) {
             e.printStackTrace();
         }
