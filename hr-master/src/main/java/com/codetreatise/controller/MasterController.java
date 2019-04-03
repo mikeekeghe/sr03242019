@@ -40,6 +40,7 @@ import java.io.InputStream;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -48,7 +49,11 @@ import java.util.*;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -144,6 +149,25 @@ public class MasterController implements Initializable {
     @Lazy
     @Autowired
     private StageManager stageManager;
+    
+      @FXML
+    Text lblItemMaster;
+
+    @FXML
+    Text ibiItemListing;
+
+    @FXML
+    Text lblKarigarMaster;
+
+    @FXML
+    Text lblJadtarMaster;
+
+    @FXML
+    Text lblPartyMaster;
+
+    @FXML
+    Text lblAccessoryMaster;
+
 
     @FXML
     TextField itemCodeField;
@@ -925,6 +949,60 @@ public class MasterController implements Initializable {
                 }
             }
         });
+            lblItemMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
+        ibiItemListing.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemListing();
+                }
+            }
+        });
+
+        lblKarigarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleKarigarMaster();
+                }
+            }
+        });
+
+        lblJadtarMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleJadtarMaster();
+                }
+            }
+        });
+
+        lblPartyMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handlePartyMaster();
+                }
+            }
+        });
+
+        lblAccessoryMaster.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    handleItemMaster();
+                }
+            }
+        });
+
     }
 
     public void checkKeyPressed(javafx.scene.input.KeyEvent myEvent2) throws InterruptedException {
@@ -1175,7 +1253,8 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handlePrintImage() {
+    public void handlePrintImage() throws SQLException, IOException {
+        Map<String, Object> parameters = new HashMap<>();
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(masterService.report(items.getId()));
         InputStream inputStream = this.getClass().getResourceAsStream("/reports/report.jrxml");
         JasperReport jasperReport = null;
@@ -1185,9 +1264,23 @@ public class MasterController implements Initializable {
         } catch (JRException e) {
             e.printStackTrace();
         }
+        parameters.put("ReportTitle", "Receipt");
+        parameters.put("param", " items.id=" + items.getId().toString());
+        parameters.put("knamep", items.getItemKarigar().toString());
+        parameters.put("jnamep", items.getJadtarmst().getName());
+        parameters.put("itemnamep", items.getKarigarmst().getName());
+        parameters.put("itemcode", items.getId().toString());
+        SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+        String dtstring = sd.format(items.getItemdate());
+        parameters.put("dtstring", dtstring);
+        parameters.put("mtwt", items.getItemKarigar().getMtwt().toString());
+        parameters.put("pname", items.getAcntmst().getName());
+        InputStream imageStream = items.getScanImage().getBinaryStream();
+        BufferedImage image = ImageIO.read(imageStream);
+        parameters.put("scanimage", image);
         JasperPrint jasperPrint = null;
         try {
-            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+           jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         } catch (JRException e) {
             e.printStackTrace();
         }

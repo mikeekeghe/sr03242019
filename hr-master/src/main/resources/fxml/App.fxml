@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="primaryStage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="711.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.AppController">
+<BorderPane fx:id="primaryStage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="711.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.AppController">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="1158.0" style="-fx-background-color: white;">
           <children>
@@ -173,7 +181,7 @@
                                     <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                                  </children>
                               </Pane>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Master">
+                              <Text fx:id="lblItemMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Master">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -193,7 +201,7 @@
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleItemListing" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                            </children>
                         </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Listing">
+                        <Text fx:id="ibiItemListing" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Listing">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -215,7 +223,7 @@
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleKarigarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                            </children>
                         </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Karigar Master">
+                        <Text fx:id="lblKarigarMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Karigar Master">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -237,7 +245,7 @@
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleJadtarMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                            </children>
                         </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jadtar Master">
+                        <Text fx:id="lblJadtarMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Jadtar Master">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -259,7 +267,7 @@
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePartyMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                            </children>
                         </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Party Master">
+                        <Text fx:id="lblPartyMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Party Master">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -281,7 +289,7 @@
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAccessoriesMaster" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" />
                            </children>
                         </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Accessories Master">
+                        <Text fx:id="lblAccessoryMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Accessories Master">
                            <font>
                               <Font size="15.0" />
                            </font>
