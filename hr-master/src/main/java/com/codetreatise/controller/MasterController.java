@@ -80,17 +80,23 @@ public class MasterController implements Initializable {
 
     private Items items;
 
-    private Itemready itemready;
+    private Itemready itemready = new Itemready();
 
-    private Itemkarigar itemkarigar;
+    private Itemkarigar itemkarigar = new Itemkarigar();
 
-    private Itemjadtar itemjadtar;
+    private Itemjadtar itemjadtar = new Itemjadtar();
 
     private ObservableList<Itemkarigaraccessry> itemkarigaraccessries = FXCollections.observableArrayList();
 
     private ObservableList<Itemjadtaraccessry> itemjadtaraccessries = FXCollections.observableArrayList();
 
     private ObservableList<Itemreadyaccessry> itemreadyaccessries = FXCollections.observableArrayList();
+
+    // List of new accessories to add
+    private List<Itemkarigaraccessry> itemkarigaraccessryList = new ArrayList<>();
+    private List<Itemjadtaraccessry> itemjadtaraccessryList = new ArrayList<>();
+    private List<Itemreadyaccessry> itemreadyaccessryList = new ArrayList<>();
+
 
     // Morena
 //	Manager manager;
@@ -127,7 +133,7 @@ public class MasterController implements Initializable {
     private ItemkarigaraccessryService itemkarigaraccessryService;
 
     @Autowired
-    private ItemjadtarcessryService itemjadtaccessryService;
+    private ItemjadtarcessryService itemjadtaraccessryService;
 
     @Autowired
     private ItemreadyaccessryService itemreadyaccessryService;
@@ -418,18 +424,23 @@ public class MasterController implements Initializable {
     @FXML
     private TextField ready_AmountField;
 
+    private boolean isNewItem = false;
+
+    // operation to do on table view
+    private String tableView_Operation = "add";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        disableEditMode();
         setTotalPages(getTotalItems());
         getItem(totalPages - ONE);
         setCurrentPage(totalPages - ONE);
         setup();
         setupTables();
-
-
     }
 
     void initializeFromItemListing(Items items) {
+        disableEditMode();
         setTotalPages(getTotalItems());
         setCurrentPage(Math.toIntExact(items.getId() - ONE));
         getItem(currentPage);
@@ -1156,11 +1167,11 @@ public class MasterController implements Initializable {
 //			}
         File outputfile = new File("saved.png");
         try {
+            assert bimage != null;
             ImageIO.write(bimage, "png", outputfile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //}
     }
 
     @FXML
@@ -1233,16 +1244,14 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    public void handleItemAdd() {
-        if (check4MandatoryFields()) {
-            isEditMode = true;
+    public void handleAddItem() {
+        if (checkRequiredFields()) {
             enableEditMode();
             listNewItem();
         }
-
     }
 
-    private boolean check4MandatoryFields() {
+    private boolean checkRequiredFields() {
         boolean result = false;
         if ((itemNameField.getText() == null) || (itemNameField.getText().isEmpty())) {
             Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
@@ -1267,7 +1276,6 @@ public class MasterController implements Initializable {
         } else {
             result = true;
         }
-
         return result;
     }
 
@@ -1280,8 +1288,8 @@ public class MasterController implements Initializable {
     @FXML
     public void handleSaveItem() {
         disableEditMode();
+        // Adding new item
         if (isEditMode) {
-            // Adding new item
             getNewItem();
             getNewItemkarigar();
             getNewItemjadtar();
@@ -1290,39 +1298,54 @@ public class MasterController implements Initializable {
             itemkarigarService.save(itemkarigar);
             itemjadtarService.save(itemjadtar);
             itemreadyService.save(itemready);
-            // increment total number of pages
             totalPages++;
         } else {
             // Update current item
             updateItem();
-            updateItemkarigar();
-            updateItemjadtar();
-            updateItemready();
-            masterService.update(items);
-            itemkarigarService.update(itemkarigar);
-            itemjadtarService.update(itemjadtar);
-            itemreadyService.update(itemready);
-        }
+            switch(tableView_Operation){
+                case "ADD":
+                    masterService.update(items);
+                    if (itemkarigar != null) {
+                        updateItemkarigar();
+                        itemkarigarService.update(itemkarigar);
+                    }
+                    if (itemjadtar != null) {
+                        updateItemjadtar();
+                        itemjadtarService.update(itemjadtar);
+                    }
+                    if (itemready != null) {
+                        updateItemready();
+                        itemreadyService.update(itemready);
+                    }
+                    itemkarigaraccessryList.forEach(itemkarigaraccessry -> itemkarigaraccessryService.save(itemkarigaraccessry));
+                    itemjadtaraccessryList.forEach(itemjadtaraccessry -> itemjadtaraccessryService.save(itemjadtaraccessry));
+                    itemreadyaccessryList.forEach(itemreadyaccessry -> itemreadyaccessryService.save(itemreadyaccessry));
+                    break;
+                case "DELETE":
+                    masterService.update(items);
+                    if (itemkarigar != null) {
+                        updateItemkarigar();
+                        itemkarigarService.update(itemkarigar);
+                    }
+                    if (itemjadtar != null) {
+                        updateItemjadtar();
+                        itemjadtarService.update(itemjadtar);
+                    }
+                    if (itemready != null) {
+                        updateItemready();
+                        itemreadyService.update(itemready);
+                    }
+                    itemkarigaraccessryService.deleteInBatch(itemkarigaraccessryList);
+                    itemjadtaraccessryService.deleteInBatch(itemjadtaraccessryList);
+                    itemreadyaccessryService.deleteInBatch(itemreadyaccessryList);
+                    break;
+                default:
+                    break;
+            }
 
+        }
     }
 
-    @FXML
-    public void handleItemDelete() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Delete Dialog");
-        alert.setHeaderText("Confirmation you are deleting this item");
-        alert.setContentText("Are you ok with deleting?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // ... user chose OK
-            masterRepository.delete(items.getId());
-            handlePrevious();
-        } else {
-            // ... user chose CANCEL or closed the dialog
-            System.err.println("Deletion canceled!");
-        }
-    }
 
     @FXML
     public void handleCloseItem() {
@@ -1368,13 +1391,24 @@ public class MasterController implements Initializable {
         return items.getTotalPages();
     }
 
+    private Double getDoubleFromTextField(TextField textField) {
+        Double value;
+        try {
+            value = Double.valueOf(textField.getText());
+        } catch (NumberFormatException | NullPointerException e) {
+            System.err.println("Value from text field is not a double or is null");
+            value = 0.0;
+        }
+        return value;
+    }
+
     private void getItem(int page) {
         Pageable pageable = new PageRequest(page, PAGE_SIZE);
         Page<Items> items = masterService.findAll(pageable);
         this.items = items.getContent().get(0);
-        this.itemkarigar = this.items.getItemKarigar();
-        this.itemjadtar = this.items.getItemJadtar();
-        this.itemready = this.items.getItemReady();
+        itemkarigar = this.items.getItemKarigar();
+        itemjadtar = this.items.getItemJadtar();
+        itemready = this.items.getItemReady();
         listItem();
 
         if (this.itemkarigar != null)
@@ -1478,7 +1512,7 @@ public class MasterController implements Initializable {
 
     private void listItemJadtarAccessry() {
         jadtar_TableView.getItems().clear();
-        itemjadtaraccessries.addAll(itemjadtaccessryService.findByItemjadtar(this.itemjadtar));
+        itemjadtaraccessries.addAll(itemjadtaraccessryService.findByItemjadtar(this.itemjadtar));
         jadtar_TableView.setItems(itemjadtaraccessries);
     }
 
@@ -1542,6 +1576,7 @@ public class MasterController implements Initializable {
         this.itemready = itemready;
     }
 
+    @SuppressWarnings("Duplicates")
     private void listNewItem() {
         // item
         itemCodeField.clear();
@@ -1580,25 +1615,24 @@ public class MasterController implements Initializable {
         ready_NetWtField.clear();
         ready_NetKundanField.clear();
         ready_ReadyDate.getEditor().clear();
-
     }
 
     private Date getDate(DatePicker datePicker) {
         LocalDate localDate = datePicker.getValue();
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
     }
 
-    private Double getDoubleFromTextField(TextField textField) {
-        Double value = null;
-        try {
-            value = Double.valueOf(textField.getText());
-        } catch (NumberFormatException e) {
-            System.err.println("Value from text field is not a double");
-            value = 0.0;
-        }
-        return value;
+    /**
+     * Check if datePicker has null value
+     *
+     * @param datePicker to check for value
+     * @return true if has value and false otherwise
+     */
+    private boolean checkDatePicker(DatePicker datePicker) {
+        return datePicker.getValue() != null;
     }
+
 
     private void setDoubleOnTextField(TextField textField, Double value) {
         try {
@@ -1616,6 +1650,7 @@ public class MasterController implements Initializable {
         textField.setText(value);
     }
 
+    @SuppressWarnings("Duplicates")
     private void enableEditMode() {
         isEditMode = true;
         // Item
@@ -1623,14 +1658,16 @@ public class MasterController implements Initializable {
         partyNameField.setEditable(true);
         karigarNameField.setEditable(true);
         jadtarKarigarNameField.setEditable(true);
+        printCodeField.setEditable(false);
 
+        //ComboBoxes
         codeComboBox.setDisable(true);
         codeComboBox.setEditable(false);
 
         nameComboBox.setDisable(true);
-        printCodeComboBox.setDisable(true);
-
         nameComboBox.setEditable(false);
+
+        printCodeComboBox.setDisable(true);
         printCodeComboBox.setEditable(false);
 
         // Karigar
@@ -1661,6 +1698,33 @@ public class MasterController implements Initializable {
         ready_NetKundanField.setEditable(true);
         ready_ReadyDate.setEditable(true);
 
+        //Itemkarigaraccessry
+        karigar_TableView.setEditable(true);
+        karigar_DetailField.setEditable(true);
+        karigar_GrossField.setEditable(true);
+        karigar_WeightField.setEditable(true);
+        karigar_RateField.setEditable(true);
+        karigar_AmountField.setEditable(true);
+
+        //Itemjadtaraccessry
+        jadtar_TableView.setEditable(true);
+        jadtar_AccessoryField.setEditable(true);
+        jadtar_CaratField.setEditable(true);
+        jadtar_WeightField.setEditable(true);
+        jadtar_Qtyield.setEditable(true);
+        jadtar_RateField.setEditable(true);
+        jadtar_AmountField.setEditable(true);
+
+        //Itemreadyaccessry
+        ready_TableView.setEditable(true);
+        ready_AccessoryField.setEditable(true);
+        ready_CaratField.setEditable(true);
+        ready_WeightField.setEditable(true);
+        ready_QtyField.setEditable(true);
+        ready_RateField.setEditable(true);
+        ready_AmountField.setEditable(true);
+
+        // Images
         addImageView.setImage(new Image("images/drawable-hdpi/ic_add_circle_grey_600_48dp.png"));
         updateImageView.setImage(new Image("images/drawable-hdpi/ic_mode_edit_grey_600_48dp.png"));
         saveImageView.setImage(new Image("images/drawable-hdpi/ic_save_blue_800_48dp.png"));
@@ -1671,6 +1735,7 @@ public class MasterController implements Initializable {
         nextImageView.setImage(new Image("images/drawable-hdpi/ic_navigate_next_grey_600_48dp.png"));
         lastImageView.setImage(new Image("images/drawable-hdpi/ic_last_page_grey_600_48dp.png"));
 
+        // Buttons
         addButton.setDisable(true);
         updateButton.setDisable(true);
         saveButton.setDisable(false);
@@ -1683,9 +1748,9 @@ public class MasterController implements Initializable {
         lastButton.setDisable(true);
 
 
-
     }
 
+    @SuppressWarnings("Duplicates")
     private void disableEditMode() {
         isEditMode = false;
         // Item
@@ -1693,6 +1758,7 @@ public class MasterController implements Initializable {
         partyNameField.setEditable(false);
         karigarNameField.setEditable(false);
         jadtarKarigarNameField.setEditable(false);
+        printCodeField.setEditable(false);
 
         // Karigar
         karigar_IssueDate.setEditable(false);
@@ -1743,9 +1809,31 @@ public class MasterController implements Initializable {
         nextButton.setDisable(false);
         lastButton.setDisable(false);
 
+        //Itemkarigaraccessry
         karigar_TableView.setEditable(false);
+        karigar_DetailField.setEditable(false);
+        karigar_GrossField.setEditable(false);
+        karigar_WeightField.setEditable(false);
+        karigar_RateField.setEditable(false);
+        karigar_AmountField.setEditable(false);
+
+        //Itemjadtaraccessry
         jadtar_TableView.setEditable(false);
+        jadtar_AccessoryField.setEditable(false);
+        jadtar_CaratField.setEditable(false);
+        jadtar_WeightField.setEditable(false);
+        jadtar_Qtyield.setEditable(false);
+        jadtar_RateField.setEditable(false);
+        jadtar_AmountField.setEditable(false);
+
+        //Itemreadyaccessry
         ready_TableView.setEditable(false);
+        ready_AccessoryField.setEditable(false);
+        ready_CaratField.setEditable(false);
+        ready_WeightField.setEditable(false);
+        ready_QtyField.setEditable(false);
+        ready_RateField.setEditable(false);
+        ready_AmountField.setEditable(false);
     }
 
     private void updateItem() {
@@ -1756,7 +1844,10 @@ public class MasterController implements Initializable {
     }
 
     private void updateItemkarigar() {
-        itemkarigar.setIssuedate(getDate(karigar_IssueDate));
+        if (itemkarigar == null)
+            itemkarigar = new Itemkarigar();
+        if (checkDatePicker(karigar_IssueDate))
+            itemkarigar.setIssuedate(getDate(karigar_IssueDate));
         itemkarigar.setGhatgrswt(getDoubleFromTextField(karigar_GhatGrossWtField));
         itemkarigar.setGhatwt(getDoubleFromTextField(karigar_GhatWtField));
         itemkarigar.setPurity2(getDoubleFromTextField(karigar_Purity2Field));
@@ -1769,23 +1860,32 @@ public class MasterController implements Initializable {
     }
 
     private void updateItemjadtar() {
-        itemjadtar.setRecdate(getDate(jadtar_ReceiveDate));
+        if (itemjadtar == null)
+            itemjadtar = new Itemjadtar();
+        if (checkDatePicker(jadtar_ReceiveDate)) {
+            itemjadtar.setRecdate(getDate(jadtar_ReceiveDate));
+        }
         itemjadtar.setJadaigrswt(getDoubleFromTextField(jadtar_JadtarGrossWtField));
         itemjadtar.setKundan(getDoubleFromTextField(jadtar_KundanField));
         itemjadtar.setRacket(jadtar_RacketField.getText());
         itemjadtar.setTotalkundan(getDoubleFromTextField(jadtar_TotalKundanField));
         itemjadtar.setTotalamount(getDoubleFromTextField(jadtar_TotalAmountField));
         itemjadtar.setTotalvax(getDoubleFromTextField(jadtar_TotalVaxField));
-
     }
 
     private void updateItemready() {
+        if (itemready == null)
+            itemready = new Itemready();
+        if (checkDatePicker(ready_ReadyDate)) {
+            itemready.setReadydate(getDate(ready_ReadyDate));
+        }
         itemready.setReadygrswt(getDoubleFromTextField(ready_ReadyGrossWtField));
         itemready.setFittingwt(getDoubleFromTextField(ready_FittingWtField));
         itemready.setNetwt(getDoubleFromTextField(ready_NetWtField));
         itemready.setNetkundan(getDoubleFromTextField(ready_NetKundanField));
-        itemready.setReadydate(getDate(ready_ReadyDate));
+
     }
+
 
     private List<Karigarmst> getKarigar() {
         return karigarmstService.findAll();
@@ -1824,6 +1924,7 @@ public class MasterController implements Initializable {
         printCodeComboBox.setItems(itemPrintCodes);
     }
 
+    @SuppressWarnings("Duplicates")
     private void setupTables() {
 
         karigar_TableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -1902,72 +2003,132 @@ public class MasterController implements Initializable {
 
     @FXML
     private void handleAddItemKarigarAccessory() {
-        Itemkarigaraccessry itemkarigaraccessry = new Itemkarigaraccessry(karigar_DetailField.getText(),
-                getDoubleFromTextField(karigar_GrossField),
-                getDoubleFromTextField(karigar_WeightField),
-                getDoubleFromTextField(karigar_RateField),
-                getDoubleFromTextField(karigar_AmountField));
-        itemkarigaraccessries.add(itemkarigaraccessry);
-        karigar_TableView.setItems(itemkarigaraccessries);
-    }
-
-    @FXML
-    private void handleUpdateItemKarigarAccessory() {
-
-    }
-
-    @FXML
-    private void handleDeleteItemKarigarAccessory() {
-
+        if (isEditMode) {
+            Itemkarigaraccessry itemkarigaraccessry = new Itemkarigaraccessry(karigar_DetailField.getText(),
+                    getDoubleFromTextField(karigar_GrossField),
+                    getDoubleFromTextField(karigar_WeightField),
+                    getDoubleFromTextField(karigar_RateField),
+                    getDoubleFromTextField(karigar_AmountField));
+            itemkarigaraccessry.setItemkarigar(itemkarigar);
+            itemkarigaraccessries.add(itemkarigaraccessry);
+            itemkarigaraccessryList.add(itemkarigaraccessry);
+            karigar_TableView.setItems(itemkarigaraccessries);
+            //Clear fields
+            handleClearKarigarTableFields();
+            tableView_Operation = "ADD";
+        }
     }
 
 
     @FXML
     private void handleAddItemJadtarAccessory() {
-        Itemjadtaraccessry itemjadtaraccessry = new Itemjadtaraccessry(jadtar_AccessoryField.getText(),
-                getDoubleFromTextField(jadtar_CaratField),
-                getDoubleFromTextField(jadtar_CaratField),
-                getDoubleFromTextField(jadtar_Qtyield),
-                getDoubleFromTextField(jadtar_CaratField),
-                getDoubleFromTextField(jadtar_AmountField));
-        itemjadtaraccessries.add(itemjadtaraccessry);
-        jadtar_TableView.setItems(itemjadtaraccessries);
-    }
-
-
-    @FXML
-    private void handleUpdateItemJadtarAccessory() {
-
-    }
-
-    @FXML
-    private void handleDeleteItemJadtarAccessory() {
-
+        if (isEditMode) {
+            Itemjadtaraccessry itemjadtaraccessry = new Itemjadtaraccessry(jadtar_AccessoryField.getText(),
+                    getDoubleFromTextField(jadtar_CaratField),
+                    getDoubleFromTextField(jadtar_CaratField),
+                    getDoubleFromTextField(jadtar_Qtyield),
+                    getDoubleFromTextField(jadtar_CaratField),
+                    getDoubleFromTextField(jadtar_AmountField));
+            itemjadtaraccessry.setItemjadtar(itemjadtar);
+            itemjadtaraccessries.add(itemjadtaraccessry);
+            itemjadtaraccessryList.add(itemjadtaraccessry);
+            jadtar_TableView.setItems(itemjadtaraccessries);
+            //Clear fields
+            handleClearJadtarTableFields();
+            tableView_Operation = "ADD";
+        }
     }
 
 
     @FXML
     private void handleAddItemReadyAccessory() {
-        Itemreadyaccessry itemreadyaccessry = new Itemreadyaccessry(ready_AccessoryField.getText(),
-                getDoubleFromTextField(ready_CaratField),
-                getDoubleFromTextField(ready_WeightField),
-                getDoubleFromTextField(ready_QtyField),
-                getDoubleFromTextField(ready_RateField),
-                getDoubleFromTextField(ready_AmountField));
-        itemreadyaccessries.add(itemreadyaccessry);
-        ready_TableView.setItems(itemreadyaccessries);
+        if (isEditMode) {
+            Itemreadyaccessry itemreadyaccessry = new Itemreadyaccessry(ready_AccessoryField.getText(),
+                    getDoubleFromTextField(ready_CaratField),
+                    getDoubleFromTextField(ready_WeightField),
+                    getDoubleFromTextField(ready_QtyField),
+                    getDoubleFromTextField(ready_RateField),
+                    getDoubleFromTextField(ready_AmountField));
+            itemreadyaccessry.setItemready(itemready);
+            itemreadyaccessries.add(itemreadyaccessry);
+            ready_TableView.setItems(itemreadyaccessries);
+            itemreadyaccessryList.add(itemreadyaccessry);
+            //Clear fields
+            handleClearReadyTableFields();
+            tableView_Operation = "ADD";
+        }
     }
 
     @FXML
-    private void handleUpdateItemReadyAccessory() {
-
+    private void handleDeleteItemKarigarAccessory() {
+        if(isEditMode){
+            for (Itemkarigaraccessry selectedItemkarigarAccessry : karigar_TableView.getSelectionModel().getSelectedItems()) {
+                itemkarigaraccessries.remove(selectedItemkarigarAccessry);
+                karigar_TableView.setItems(itemkarigaraccessries);
+                itemkarigaraccessryList.clear();
+                itemkarigaraccessryList.add(selectedItemkarigarAccessry);
+            }
+            tableView_Operation = "DELETE";
+        }
     }
+
+    @FXML
+    private void handleDeleteItemJadtarAccessory() {
+        if(isEditMode){
+            for (Itemjadtaraccessry selectedItemjadtarAccessry : jadtar_TableView.getSelectionModel().getSelectedItems()) {
+                itemjadtaraccessries.remove(selectedItemjadtarAccessry);
+                jadtar_TableView.setItems(itemjadtaraccessries);
+                itemjadtaraccessryList.clear();
+                itemjadtaraccessryList.add(selectedItemjadtarAccessry);
+            }
+            tableView_Operation = "DELETE";
+        }
+    }
+
 
     @FXML
     private void handleDeleteItemReadyAccessory() {
-
+        if(isEditMode){
+            for (Itemreadyaccessry selectedItemreadyAccessry : ready_TableView.getSelectionModel().getSelectedItems()) {
+                itemreadyaccessries.remove(selectedItemreadyAccessry);
+                ready_TableView.setItems(itemreadyaccessries);
+                itemreadyaccessryList.clear();
+                itemreadyaccessryList.add(selectedItemreadyAccessry);
+            }
+            tableView_Operation = "DELETE";
+        }
     }
 
+    @FXML
+    private void handleClearKarigarTableFields() {
+        karigar_DetailField.clear();
+        karigar_GrossField.clear();
+        karigar_WeightField.clear();
+        karigar_RateField.clear();
+        karigar_AmountField.clear();
+    }
+
+    @SuppressWarnings("Duplicates")
+    @FXML
+    private void handleClearJadtarTableFields() {
+        jadtar_AccessoryField.clear();
+        jadtar_CaratField.clear();
+        jadtar_WeightField.clear();
+        jadtar_Qtyield.clear();
+        jadtar_RateField.clear();
+        jadtar_AmountField.clear();
+
+    }
+    @SuppressWarnings("Duplicates")
+    @FXML
+    private void handleClearReadyTableFields() {
+        ready_AccessoryField.clear();
+        ready_CaratField.clear();
+        ready_WeightField.clear();
+        ready_QtyField.clear();
+        ready_RateField.clear();
+        ready_AmountField.clear();
+    }
 
     private void updateDB() {
         List<Itemkarigaraccessry> list1 = itemkarigaraccessryService.findAll();
@@ -1976,10 +2137,10 @@ public class MasterController implements Initializable {
             itemkarigaraccessryService.update(i);
 
         }
-        List<Itemjadtaraccessry> list2 = itemjadtaccessryService.findAll();
+        List<Itemjadtaraccessry> list2 = itemjadtaraccessryService.findAll();
         for (Itemjadtaraccessry j : list2) {
             j.setAccessory(customaccessService.find(j.getCustomaccess().getId()).getName());
-            itemjadtaccessryService.update(j);
+            itemjadtaraccessryService.update(j);
 
         }
         List<Itemreadyaccessry> list3 = itemreadyaccessryService.findAll();
@@ -1992,12 +2153,20 @@ public class MasterController implements Initializable {
 
     @FXML
     public void handleDeleteItem() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Delete Dialog");
+        alert.setHeaderText("Confirmation you are deleting this item");
+        alert.setContentText("Are you ok with deleting?");
 
-    }
-
-    @FXML
-    public void handleClearItemReadyAccessory(){
-
+        Optional<ButtonType> result = alert.showAndWait();
+        if (ButtonType.OK == result.get()) {
+            // ... user chose OK
+            masterRepository.delete(items.getId());
+            handlePrevious();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+            System.err.println("Deletion canceled!");
+        }
     }
 
 }

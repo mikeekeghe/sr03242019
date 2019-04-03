@@ -16,9 +16,6 @@ public class Itemjadtaraccessry {
     @JoinColumn(name = "accessoryid")
     private Customaccess customaccess;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemjadtarid")
-    private Itemjadtar itemjadtar;
 
     private String accessory;
 
@@ -46,6 +43,9 @@ public class Itemjadtaraccessry {
 
     private Integer editid = 0;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemjadtarid")
+    private Itemjadtar itemjadtar;
 
     public Itemjadtaraccessry() {
     }

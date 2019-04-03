@@ -42,12 +42,12 @@
       <Label fx:id="loginStatus" layoutX="181.0" layoutY="307.0" prefHeight="35.0" prefWidth="72.0" textFill="RED" />
       <ImageView fx:id="passwordImage" fitHeight="35.0" fitWidth="35.0" layoutX="72.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/ic_vpn_key_blue_300_24dp.png" />
+            <Image url="images/ic_vpn_key_blue_300_24dp.png" />
          </image>
       </ImageView>
       <ImageView fx:id="usernameImage" fitHeight="35.0" fitWidth="35.0" layoutX="72.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/ic_account_circle_blue_300_24dp.png" />
+            <Image url="images/ic_account_circle_blue_300_24dp.png" />
          </image>
       </ImageView>
    </children>

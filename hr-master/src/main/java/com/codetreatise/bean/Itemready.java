@@ -14,7 +14,7 @@ public class Itemready {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemsid")
     private Items items;
 
@@ -39,8 +39,6 @@ public class Itemready {
     private Integer userid = 0;
 
     private Integer editid = 0;
-
-
 
     @OneToMany(mappedBy = "itemready")
     private List<Itemreadyaccessry> itemreadyaccessries;

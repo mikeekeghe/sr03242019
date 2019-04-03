@@ -12,7 +12,7 @@ public enum FxmlView {
 
         @Override
         public String getFxmlFile() {
-            return "/fxml/Master.fxml";
+            return "/fxml/Sudoku.fxml";
         }
     },
     LOGIN {

@@ -40,7 +40,7 @@ public class Itemkarigaraccessry {
 
     private Integer editid = 0;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemkarigarid")
     private Itemkarigar itemkarigar;
 

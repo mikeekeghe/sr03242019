@@ -16,7 +16,7 @@ public class Itemreadyaccessry {
     @JoinColumn(name = "accessoryid")
     private Customaccess customaccess;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemreadyid")
     private Itemready itemready;
 
